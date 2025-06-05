@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmark Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+  <div class="container mx-auto p-4 max-w-4xl">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">
+        <i class="fas fa-bookmark mr-2 text-blue-500"></i> Bookmark Manager
+      </h1>
+      <button id="themeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+        <i class="fas fa-moon"></i>
+      </button>
+    </header>
+
+    <!-- Add Bookmark Form -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
+      <form id="bookmarkForm" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="title" class="block text-gray-700 dark:text-gray-300 mb-2">Title</label>
+            <input type="text" id="title" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white" placeholder="My Favorite Site" required>
+          </div>
+          <div>
+            <label for="url" class="block text-gray-700 dark:text-gray-300 mb-2">URL</label>
+            <div class="relative">
+              <input type="url" id="url" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10" placeholder="https://example.com" required>
+              <i class="fas fa-link absolute left-3 top-3.5 text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="bookmarkId">
+        <div class="flex justify-end gap-3">
+          <button type="reset" id="cancelBtn" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hidden">Cancel</button>
+          <button type="submit" id="saveBtn" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition">
+            <i class="fas fa-plus mr-2"></i> Add Bookmark
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Search & Bookmarks -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Your Bookmarks</h2>
+        <div class="relative w-full md:w-64">
+          <input type="text" id="searchInput" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10" placeholder="Search...">
+          <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+        </div>
+      </div>
+
+      <!-- Bookmarks List -->
+      <div id="bookmarksList" class="space-y-3">
+        <!-- Bookmarks will be added here dynamically -->
+        <div class="text-center py-8 text-gray-500" id="emptyState">
+          <i class="fas fa-bookmark text-4xl mb-3 text-gray-300"></i>
+          <p>No bookmarks yet. Add your first one!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
