@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // DOM Elements
+  const body = document.body;
+  const themeToggle = document.getElementById("themeToggle");
   const bookmarkForm = document.getElementById("bookmarkForm");
   const titleInput = document.getElementById("title");
   const urlInput = document.getElementById("url");
@@ -9,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const bookmarksList = document.getElementById("bookmarksList");
   const searchInput = document.getElementById("searchInput");
   const emptyState = document.getElementById("emptyState");
-  const themeToggle = document.getElementById("themeToggle");
 
   // State
   let isEditing = false;
@@ -20,12 +21,37 @@ document.addEventListener("DOMContentLoaded", function () {
   initTheme();
 
   // Event Listeners
+  themeToggle.addEventListener("click", toggleTheme);
   bookmarkForm.addEventListener("submit", saveBookmark);
   cancelBtn.addEventListener("click", cancelEdit);
   searchInput.addEventListener("input", filterBookmarks);
-  themeToggle.addEventListener("click", toggleTheme);
 
-  // Functions
+  // Theme Functions
+  function toggleTheme() {
+    if (body.classList.contains("theme-light")) {
+      body.classList.replace("theme-light", "theme-dark");
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      localStorage.setItem("theme", "dark");
+    } else {
+      body.classList.replace("theme-dark", "theme-light");
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      localStorage.setItem("theme", "light");
+    }
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+
+    if (savedTheme === "dark") {
+      body.classList.replace("theme-light", "theme-dark");
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      body.classList.replace("theme-dark", "theme-light");
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+  }
+
+  // Bookmark Functions
   function saveBookmark(e) {
     e.preventDefault();
 
@@ -35,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validate URL
     if (!isValidUrl(url)) {
-      urlInput.classList.add("input-error");
+      urlInput.classList.add("border-red-500");
       urlInput.focus();
       return;
     }
@@ -64,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     saveBtn.innerHTML =
       '<i class="fas fa-plus mr-2"></i><span class="hidden sm:inline">Add Bookmark</span><span class="sm:hidden">Add</span>';
     cancelBtn.classList.add("hidden");
-    urlInput.classList.remove("input-error");
+    urlInput.classList.remove("border-red-500");
   }
 
   function renderBookmarks(filter = "") {
@@ -89,37 +115,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (filteredBookmarks.length === 0) {
       bookmarksList.innerHTML = `
-        <div class="text-center py-8 text-gray-500 dark:text-gray-400">
-          <i class="fas fa-search text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
-          <p>No bookmarks found matching "${filter}"</p>
-        </div>
-      `;
+                        <div class="text-center py-12 text-gray-500">
+                            <i class="fas fa-search text-5xl mb-4 text-gray-300"></i>
+                            <p class="text-lg">No bookmarks found matching "${filter}"</p>
+                        </div>
+                    `;
       return;
     }
 
     bookmarksList.innerHTML = filteredBookmarks
       .map(
         (bookmark) => `
-      <div class="bookmark-item bg-gray-50 dark:bg-gray-700 p-4 rounded-lg flex justify-between items-center transition-all duration-300" data-id="${bookmark.id}">
-        <div class="bookmark-content flex items-center overflow-hidden flex-1">
-          <div class="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg mr-4 flex-shrink-0">
-            <i class="fas fa-bookmark text-blue-500 dark:text-blue-300"></i>
-          </div>
-          <div class="truncate flex-1">
-            <a href="${bookmark.url}" target="_blank" class="text-blue-500 hover:underline font-medium block truncate">${bookmark.title}</a>
-            <span class="text-gray-500 dark:text-gray-400 text-sm block truncate">${bookmark.url}</span>
-          </div>
-        </div>
-        <div class="bookmark-actions flex gap-2 ml-4">
-          <button class="edit-btn p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-300" aria-label="Edit bookmark">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="delete-btn p-2 text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-300" aria-label="Delete bookmark">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </div>
-      </div>
-    `
+                        <div class="bookmark-item card rounded-lg p-4 flex justify-between items-center fade-in" data-id="${bookmark.id}">
+                            <div class="flex items-center overflow-hidden flex-1">
+                                <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg mr-4 flex-shrink-0">
+                                    <i class="fas fa-bookmark text-blue-500 dark:text-blue-300"></i>
+                                </div>
+                                <div class="truncate flex-1">
+                                    <a href="${bookmark.url}" target="_blank" class="text-blue-500 hover:underline font-medium block truncate">${bookmark.title}</a>
+                                    <span class="text-gray-500 dark:text-gray-400 text-sm block truncate">${bookmark.url}</span>
+                                </div>
+                            </div>
+                            <div class="bookmark-actions flex gap-2 ml-4">
+                                <button class="edit-btn p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg transition" title="Edit bookmark">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-btn p-2 text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 rounded-lg transition" title="Delete bookmark">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `
       )
       .join("");
 
@@ -181,38 +207,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return true;
     } catch {
       return false;
-    }
-  }
-
-  // Theme functions
-  function toggleTheme() {
-    document.body.classList.toggle("dark");
-
-    const icon = themeToggle.querySelector("i");
-    if (document.body.classList.contains("dark")) {
-      icon.classList.remove("fa-sun");
-      icon.classList.add("fa-moon");
-      localStorage.setItem("theme", "dark");
-    } else {
-      icon.classList.remove("fa-moon");
-      icon.classList.add("fa-sun");
-      localStorage.setItem("theme", "light");
-    }
-  }
-
-  function initTheme() {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark");
-    }
-
-    const icon = themeToggle.querySelector("i");
-    if (savedTheme === "dark") {
-      icon.classList.add("fa-moon");
-      icon.classList.remove("fa-sun");
-    } else {
-      icon.classList.add("fa-sun");
-      icon.classList.remove("fa-moon");
     }
   }
 });
