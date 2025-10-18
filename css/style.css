@@ -1,56 +1,90 @@
-/* Custom styles */
-body {
-  transition: background-color 0.3s ease, color 0.3s ease;
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --bg-light: #f8fafc;
+  --bg-dark: #0f172a;
+  --text-light: #1e293b;
+  --text-dark: #f1f5f9;
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+  --border-light: #e2e8f0;
+  --border-dark: #334155;
 }
-/* Bookmark item styles */
-.bookmark-item {
+
+body {
+  font-family: "Inter", sans-serif;
   transition: all 0.3s ease;
 }
+
+.theme-light {
+  --bg-color: var(--bg-light);
+  --text-color: var(--text-light);
+  --card-color: var(--card-light);
+  --border-color: var(--border-light);
+}
+
+.theme-dark {
+  --bg-color: var(--bg-dark);
+  --text-color: var(--text-dark);
+  --card-color: var(--card-dark);
+  --border-color: var(--border-dark);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-color);
+  border: 1px solid var(--border-color);
+}
+
+.bookmark-item {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--border-color);
+}
+
 .bookmark-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-/* URL validation */
-.input-error {
-  border-color: #ef4444 !important;
+
+.theme-toggle {
+  transition: all 0.3s ease;
 }
-.input-success {
-  border-color: #10b981 !important;
+
+.theme-toggle:hover {
+  transform: rotate(12deg);
 }
-/* Empty state animation */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
-#emptyState {
-  animation: fadeIn 0.5s ease;
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
 }
-/* Mobile optimizations */
+
 @media (max-width: 640px) {
   .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 1rem;
   }
+
   .bookmark-item {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .bookmark-actions {
     margin-top: 0.75rem;
     align-self: flex-end;
-  }
-  .bookmark-content {
-    width: 100%;
-  }
-}
-/* Tablet optimizations */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .bookmark-item {
-    padding: 1rem;
   }
 }
