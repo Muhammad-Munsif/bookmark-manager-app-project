@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookmark Manager</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --primary-light: #93c5fd;
+        --secondary: #8b5cf6;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --bg-light: #f8fafc;
+        --bg-dark: #0f172a;
+        --text-light: #1e293b;
+        --text-dark: #f1f5f9;
+        --card-light: #ffffff;
+        --card-dark: #1e293b;
+        --border-light: #e2e8f0;
+        --border-dark: #334155;
+        --gradient-start: #667eea;
+        --gradient-end: #764ba2;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        transition: all 0.3s ease;
+      }
+
+      .theme-light {
+        --bg-color: var(--bg-light);
+        --text-color: var(--text-light);
+        --card-color: var(--card-light);
+        --border-color: var(--border-light);
+      }
+
+      .theme-dark {
+        --bg-color: var(--bg-dark);
+        --text-color: var(--text-dark);
+        --card-color: var(--card-dark);
+        --border-color: var(--border-dark);
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        min-height: 100vh;
+      }
+
+      .card {
+        background-color: var(--card-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .bookmark-item {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .bookmark-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+      }
+
+      .theme-toggle {
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: rotate(12deg);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .pulse {
+        animation: pulse 1.5s infinite;
+      }
+
+      .slide-in {
+        animation: slideIn 0.4s ease forwards;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      }
+
+      .bookmark-icon {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        width: 48px;
+        height: 48px;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .category-tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .category-work {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+      }
+
+      .category-personal {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+      }
+
+      .category-learning {
+        background-color: rgba(139, 92, 246, 0.1);
+        color: #8b5cf6;
+      }
+
+      .category-entertainment {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: #f59e0b;
+      }
+
+      .floating-action-btn {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .floating-action-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        background-color: var(--card-color);
+        color: var(--text-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .toast.show {
+        opacity: 1;
+      }
+
+      .toast.success {
+        border-left: 4px solid var(--success);
+      }
+
+      .toast.error {
+        border-left: 4px solid var(--danger);
+      }
+
+      .toast.info {
+        border-left: 4px solid var(--primary);
+      }
+
+      .stats-card {
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .stats-card .number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .stats-card .label {
+        font-size: 0.875rem;
+        opacity: 0.9;
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .bookmark-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .bookmark-actions {
+          margin-top: 0.75rem;
+          align-self: flex-end;
+        }
+
+        .floating-action-btn {
+          bottom: 1rem;
+          right: 1rem;
+          width: 50px;
+          height: 50px;
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="theme-light min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <div class="bookmark-icon mr-3">
+            <i class="fas fa-bookmark"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold">Bookmark Manager</h1>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">Organize your favorite websites</p>
+          </div>
+        </div>
+        <button
+          id="themeToggle"
+          class="theme-toggle p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 shadow-md"
+        >
+          <i class="fas fa-moon"></i>
+        </button>
+      </header>
+
+      <!-- Stats Section -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="stats-card">
+          <div class="number" id="totalBookmarks">0</div>
+          <div class="label">Total Bookmarks</div>
+        </div>
+        <div class="stats-card">
+          <div class="number" id="workBookmarks">0</div>
+          <div class="label">Work</div>
+        </div>
+        <div class="stats-card">
+          <div class="number" id="personalBookmarks">0</div>
+          <div class="label">Personal</div>
+        </div>
+        <div class="stats-card">
+          <div class="number" id="recentBookmarks">0</div>
+          <div class="label">Added This Week</div>
+        </div>
+      </div>
+
+      <!-- Add Bookmark Form -->
+      <div class="card rounded-xl shadow-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <i class="fas fa-plus-circle mr-2 text-blue-500"></i>
+          Add New Bookmark
+        </h2>
+        <form id="bookmarkForm" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="title" class="block mb-2 font-medium">Title</label>
+              <input
+                type="text"
+                id="title"
+                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
+                placeholder="My Favorite Website"
+                required
+              />
+            </div>
+            <div>
+              <label for="url" class="block mb-2 font-medium">URL</label>
+              <div class="relative">
+                <input
+                  type="url"
+                  id="url"
+                  class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10 transition-all"
+                  placeholder="https://example.com"
+                  required
+                />
+                <i
+                  class="fas fa-link absolute left-3 top-3.5 text-gray-400"
+                ></i>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="category" class="block mb-2 font-medium">Category</label>
+            <select
+              id="category"
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
+            >
+              <option value="personal">Personal</option>
+              <option value="work">Work</option>
+              <option value="learning">Learning</option>
+              <option value="entertainment">Entertainment</option>
+            </select>
+          </div>
+          <div>
+            <label for="description" class="block mb-2 font-medium">Description (Optional)</label>
+            <textarea
+              id="description"
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
+              placeholder="Add a description for this bookmark..."
+              rows="2"
+            ></textarea>
+          </div>
+          <input type="hidden" id="bookmarkId" />
+          <div class="flex justify-end gap-3">
+            <button
+              type="reset"
+              id="cancelBtn"
+              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hidden transition-all hover:bg-gray-100 dark:hover:bg-gray-600"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              id="saveBtn"
+              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all flex items-center shadow-md hover:shadow-lg"
+            >
+              <i class="fas fa-plus mr-2"></i>
+              <span class="hidden sm:inline">Add Bookmark</span>
+              <span class="sm:hidden">Add</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Search & Bookmarks -->
+      <div class="card rounded-xl shadow-lg p-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4"
+        >
+          <h2 class="text-xl font-semibold flex items-center">
+            <i class="fas fa-bookmark mr-2 text-blue-500"></i>
+            Your Bookmarks
+          </h2>
+          <div class="flex gap-3">
+            <div class="relative w-full md:w-64">
+              <input
+                type="text"
+                id="searchInput"
+                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10 transition-all"
+                placeholder="Search bookmarks..."
+              />
+              <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+            </div>
+            <select
+              id="categoryFilter"
+              class="p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
+            >
+              <option value="all">All Categories</option>
+              <option value="personal">Personal</option>
+              <option value="work">Work</option>
+              <option value="learning">Learning</option>
+              <option value="entertainment">Entertainment</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bookmarks List -->
+        <div id="bookmarksList" class="space-y-4">
+          <!-- Bookmarks will be added here dynamically -->
+          <div class="text-center py-12 text-gray-500" id="emptyState">
+            <i class="fas fa-bookmark text-5xl mb-4 text-gray-300"></i>
+            <p class="text-lg">No bookmarks yet. Add your first one!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action-btn" id="addBookmarkBtn">
+      <i class="fas fa-plus"></i>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+      <i class="fas fa-check-circle text-green-500"></i>
+      <span id="toastMessage">Bookmark added successfully!</span>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // DOM Elements
+        const body = document.body;
+        const themeToggle = document.getElementById("themeToggle");
+        const bookmarkForm = document.getElementById("bookmarkForm");
+        const titleInput = document.getElementById("title");
+        const urlInput = document.getElementById("url");
+        const categoryInput = document.getElementById("category");
+        const descriptionInput = document.getElementById("description");
+        const bookmarkIdInput = document.getElementById("bookmarkId");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const saveBtn = document.getElementById("saveBtn");
+        const bookmarksList = document.getElementById("bookmarksList");
+        const searchInput = document.getElementById("searchInput");
+        const categoryFilter = document.getElementById("categoryFilter");
+        const emptyState = document.getElementById("emptyState");
+        const addBookmarkBtn = document.getElementById("addBookmarkBtn");
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+        
+        // Stats elements
+        const totalBookmarksEl = document.getElementById("totalBookmarks");
+        const workBookmarksEl = document.getElementById("workBookmarks");
+        const personalBookmarksEl = document.getElementById("personalBookmarks");
+        const recentBookmarksEl = document.getElementById("recentBookmarks");
+
+        // State
+        let isEditing = false;
+        let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+        // Initialize
+        renderBookmarks();
+        initTheme();
+        updateStats();
+
+        // Event Listeners
+        themeToggle.addEventListener("click", toggleTheme);
+        bookmarkForm.addEventListener("submit", saveBookmark);
+        cancelBtn.addEventListener("click", cancelEdit);
+        searchInput.addEventListener("input", filterBookmarks);
+        categoryFilter.addEventListener("change", filterBookmarks);
+        addBookmarkBtn.addEventListener("click", scrollToForm);
+
+        // Theme Functions
+        function toggleTheme() {
+          if (body.classList.contains("theme-light")) {
+            body.classList.replace("theme-light", "theme-dark");
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem("theme", "dark");
+          } else {
+            body.classList.replace("theme-dark", "theme-light");
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem("theme", "light");
+          }
+        }
+
+        function initTheme() {
+          const savedTheme = localStorage.getItem("theme") || "light";
+
+          if (savedTheme === "dark") {
+            body.classList.replace("theme-light", "theme-dark");
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          } else {
+            body.classList.replace("theme-dark", "theme-light");
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+          }
+        }
+
+        // Bookmark Functions
+        function saveBookmark(e) {
+          e.preventDefault();
+
+          const title = titleInput.value.trim();
+          const url = urlInput.value.trim();
+          const category = categoryInput.value;
+          const description = descriptionInput.value.trim();
+          const id = bookmarkIdInput.value;
+
+          // Validate URL
+          if (!isValidUrl(url)) {
+            urlInput.classList.add("border-red-500");
+            urlInput.focus();
+            showToast("Please enter a valid URL", "error");
+            return;
+          }
+
+          const bookmark = { title, url, category, description };
+
+          if (isEditing) {
+            // Update existing bookmark
+            const index = bookmarks.findIndex((b) => b.id === id);
+            if (index !== -1) {
+              bookmark.id = id;
+              bookmark.createdAt = bookmarks[index].createdAt;
+              bookmarks[index] = bookmark;
+            }
+            isEditing = false;
+            showToast("Bookmark updated successfully", "success");
+          } else {
+            // Add new bookmark
+            bookmark.id = Date.now().toString();
+            bookmark.createdAt = new Date().toISOString();
+            bookmarks.push(bookmark);
+            showToast("Bookmark added successfully", "success");
+          }
+
+          // Save to localStorage and reset form
+          localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+          bookmarkForm.reset();
+          renderBookmarks();
+          updateStats();
+
+          // Update UI
+          saveBtn.innerHTML =
+            '<i class="fas fa-plus mr-2"></i><span class="hidden sm:inline">Add Bookmark</span><span class="sm:hidden">Add</span>';
+          cancelBtn.classList.add("hidden");
+          urlInput.classList.remove("border-red-500");
+        }
+
+        function renderBookmarks() {
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          const categoryFilterValue = categoryFilter.value;
+
+          if (bookmarks.length === 0) {
+            emptyState.classList.remove("hidden");
+            bookmarksList.innerHTML = "";
+            bookmarksList.appendChild(emptyState);
+            return;
+          }
+
+          emptyState.classList.add("hidden");
+
+          let filteredBookmarks = bookmarks;
+          
+          // Apply search filter
+          if (searchTerm) {
+            filteredBookmarks = filteredBookmarks.filter(
+              (bookmark) =>
+                bookmark.title.toLowerCase().includes(searchTerm) ||
+                bookmark.url.toLowerCase().includes(searchTerm) ||
+                (bookmark.description && bookmark.description.toLowerCase().includes(searchTerm))
+            );
+          }
+          
+          // Apply category filter
+          if (categoryFilterValue !== "all") {
+            filteredBookmarks = filteredBookmarks.filter(
+              (bookmark) => bookmark.category === categoryFilterValue
+            );
+          }
+
+          if (filteredBookmarks.length === 0) {
+            bookmarksList.innerHTML = `
+              <div class="text-center py-12 text-gray-500">
+                <i class="fas fa-search text-5xl mb-4 text-gray-300"></i>
+                <p class="text-lg">No bookmarks found matching your criteria</p>
+              </div>
+            `;
+            return;
+          }
+
+          // Sort by creation date (newest first)
+          filteredBookmarks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+          bookmarksList.innerHTML = filteredBookmarks
+            .map(
+              (bookmark) => `
+                <div class="bookmark-item card rounded-lg p-4 flex justify-between items-center fade-in" data-id="${bookmark.id}">
+                  <div class="flex items-center overflow-hidden flex-1">
+                    <div class="bookmark-icon mr-4 flex-shrink-0">
+                      <i class="fas fa-bookmark"></i>
+                    </div>
+                    <div class="truncate flex-1">
+                      <a href="${bookmark.url}" target="_blank" class="text-blue-500 hover:underline font-medium block truncate">${bookmark.title}</a>
+                      <span class="text-gray-500 dark:text-gray-400 text-sm block truncate">${bookmark.url}</span>
+                      ${bookmark.description ? `<p class="text-gray-600 dark:text-gray-300 text-sm mt-1">${bookmark.description}</p>` : ''}
+                      <div class="mt-2">
+                        <span class="category-tag category-${bookmark.category}">${bookmark.category.charAt(0).toUpperCase() + bookmark.category.slice(1)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bookmark-actions flex gap-2 ml-4">
+                    <button class="edit-btn p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg transition" title="Edit bookmark">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="delete-btn p-2 text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 rounded-lg transition" title="Delete bookmark">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              `
+            )
+            .join("");
+
+          // Add event listeners to edit and delete buttons
+          document.querySelectorAll(".edit-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              const bookmarkId = e.target.closest(".bookmark-item").dataset.id;
+              editBookmark(bookmarkId);
+            });
+          });
+
+          document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              const bookmarkId = e.target.closest(".bookmark-item").dataset.id;
+              deleteBookmark(bookmarkId);
+            });
+          });
+        }
+
+        function editBookmark(id) {
+          const bookmark = bookmarks.find((b) => b.id === id);
+          if (!bookmark) return;
+
+          titleInput.value = bookmark.title;
+          urlInput.value = bookmark.url;
+          categoryInput.value = bookmark.category;
+          descriptionInput.value = bookmark.description || '';
+          bookmarkIdInput.value = bookmark.id;
+
+          // Update UI for editing
+          isEditing = true;
+          saveBtn.innerHTML =
+            '<i class="fas fa-save mr-2"></i><span class="hidden sm:inline">Save Changes</span><span class="sm:hidden">Save</span>';
+          cancelBtn.classList.remove("hidden");
+          titleInput.focus();
+          
+          // Scroll to form
+          scrollToForm();
+        }
+
+        function deleteBookmark(id) {
+          if (confirm("Are you sure you want to delete this bookmark?")) {
+            bookmarks = bookmarks.filter((bookmark) => bookmark.id !== id);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+            renderBookmarks();
+            updateStats();
+            showToast("Bookmark deleted successfully", "info");
+          }
+        }
+
+        function cancelEdit() {
+          bookmarkForm.reset();
+          isEditing = false;
+          saveBtn.innerHTML =
+            '<i class="fas fa-plus mr-2"></i><span class="hidden sm:inline">Add Bookmark</span><span class="sm:hidden">Add</span>';
+          cancelBtn.classList.add("hidden");
+        }
+
+        function filterBookmarks() {
+          renderBookmarks();
+        }
+
+        function isValidUrl(url) {
+          try {
+            new URL(url);
+            return true;
+          } catch {
+            return false;
+          }
+        }
+
+        function scrollToForm() {
+          document.querySelector('#bookmarkForm').scrollIntoView({ 
+            behavior: 'smooth' 
+          });
+        }
+
+        function showToast(message, type = "success") {
+          toastMessage.textContent = message;
+          toast.className = "toast";
+          toast.classList.add(type, "show");
+          
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 3000);
+        }
+
+        function updateStats() {
+          const total = bookmarks.length;
+          const work = bookmarks.filter(b => b.category === "work").length;
+          const personal = bookmarks.filter(b => b.category === "personal").length;
+          
+          // Count bookmarks added in the last 7 days
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+          const recent = bookmarks.filter(b => new Date(b.createdAt) > oneWeekAgo).length;
+          
+          totalBookmarksEl.textContent = total;
+          workBookmarksEl.textContent = work;
+          personalBookmarksEl.textContent = personal;
+          recentBookmarksEl.textContent = recent;
+        }
+      });
+    </script>
+  </body>
+</html>
