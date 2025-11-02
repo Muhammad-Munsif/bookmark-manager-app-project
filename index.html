@@ -10,6 +10,99 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+      :root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --bg-light: #f8fafc;
+  --bg-dark: #0f172a;
+  --text-light: #1e293b;
+  --text-dark: #f1f5f9;
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+  --border-light: #e2e8f0;
+  --border-dark: #334155;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.theme-light {
+  --bg-color: var(--bg-light);
+  --text-color: var(--text-light);
+  --card-color: var(--card-light);
+  --border-color: var(--border-light);
+}
+
+.theme-dark {
+  --bg-color: var(--bg-dark);
+  --text-color: var(--text-dark);
+  --card-color: var(--card-dark);
+  --border-color: var(--border-dark);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-color);
+  border: 1px solid var(--border-color);
+}
+
+.bookmark-item {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.bookmark-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle {
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(12deg);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .bookmark-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bookmark-actions {
+    margin-top: 0.75rem;
+    align-self: flex-end;
+  }
+}
+
+    </style>
   </head>
   <body class="theme-light min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
