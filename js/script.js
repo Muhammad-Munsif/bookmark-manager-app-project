@@ -1,4 +1,4 @@
-<script>
+
       document.addEventListener("DOMContentLoaded", function () {
         // DOM Elements
         const body = document.body;
@@ -293,4 +293,4 @@
           recentBookmarksEl.textContent = recent;
         }
       });
-    </script>
+    
