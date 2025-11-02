@@ -9,7 +9,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-    
   </head>
   <body class="theme-light min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-6xl">
@@ -21,7 +20,9 @@
           </div>
           <div>
             <h1 class="text-2xl md:text-3xl font-bold">Bookmark Manager</h1>
-            <p class="text-gray-500 dark:text-gray-400 text-sm">Organize your favorite websites</p>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+              Organize your favorite websites
+            </p>
           </div>
         </div>
         <button
@@ -87,7 +88,9 @@
             </div>
           </div>
           <div>
-            <label for="category" class="block mb-2 font-medium">Category</label>
+            <label for="category" class="block mb-2 font-medium"
+              >Category</label
+            >
             <select
               id="category"
               class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
@@ -99,7 +102,9 @@
             </select>
           </div>
           <div>
-            <label for="description" class="block mb-2 font-medium">Description (Optional)</label>
+            <label for="description" class="block mb-2 font-medium"
+              >Description (Optional)</label
+            >
             <textarea
               id="description"
               class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
@@ -146,7 +151,9 @@
                 class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10 transition-all"
                 placeholder="Search bookmarks..."
               />
-              <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+              <i
+                class="fas fa-search absolute left-3 top-3.5 text-gray-400"
+              ></i>
             </div>
             <select
               id="categoryFilter"
@@ -182,7 +189,5 @@
       <i class="fas fa-check-circle text-green-500"></i>
       <span id="toastMessage">Bookmark added successfully!</span>
     </div>
-
-    
   </body>
 </html>
