@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
@@ -45,7 +46,8 @@
       background-color: var(--bg-light);
       color: var(--text-light);
       min-height: 100vh;
-      font-size: 16px; /* base for rem, better mobile readability */
+      font-size: 16px;
+      /* base for rem, better mobile readability */
     }
 
     /* theme classes */
@@ -53,6 +55,7 @@
       background-color: var(--bg-dark) !important;
       color: var(--text-dark) !important;
     }
+
     .theme-light {
       background-color: var(--bg-light);
       color: var(--text-light);
@@ -64,10 +67,12 @@
       border: 1px solid var(--border-light);
       transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
+
     .theme-dark .card {
       background-color: var(--card-dark);
       border-color: var(--border-dark);
     }
+
     .theme-dark select,
     .theme-dark input,
     .theme-dark textarea,
@@ -76,6 +81,7 @@
       border-color: #334155;
       color: #f1f5f9;
     }
+
     .theme-dark option {
       background-color: #1e293b;
       color: #f1f5f9;
@@ -89,17 +95,20 @@
       margin-bottom: 8px;
       background-color: var(--card-light);
     }
+
     .theme-dark .bookmark-item {
       border-bottom-color: var(--border-dark);
       background-color: var(--card-dark);
     }
+
     .bookmark-item:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px -6px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.15);
     }
+
     /* active state for mobile tap */
     .bookmark-item:active {
-      background-color: rgba(59,130,246,0.05);
+      background-color: rgba(59, 130, 246, 0.05);
     }
 
     /* bookmark icon – consistent gradient */
@@ -127,21 +136,54 @@
       text-transform: capitalize;
       margin-right: 0.5rem;
       margin-bottom: 0.25rem;
-      background: rgba(59,130,246,0.08);
+      background: rgba(59, 130, 246, 0.08);
       color: #2563eb;
     }
+
     .theme-dark .category-tag {
-      background: rgba(147,197,253,0.15);
+      background: rgba(147, 197, 253, 0.15);
       color: #93c5fd;
     }
-    .category-work { background: rgba(59,130,246,0.12); color: #1e4fd9; }
-    .category-personal { background: rgba(16,185,129,0.12); color: #0b8e5c; }
-    .category-learning { background: rgba(139,92,246,0.12); color: #6d3bcf; }
-    .category-entertainment { background: rgba(245,158,11,0.12); color: #c47d0b; }
-    .theme-dark .category-work { background: rgba(59,130,246,0.25); color: #bfdbfe; }
-    .theme-dark .category-personal { background: rgba(16,185,129,0.25); color: #a7f3d0; }
-    .theme-dark .category-learning { background: rgba(139,92,246,0.25); color: #ddd6fe; }
-    .theme-dark .category-entertainment { background: rgba(245,158,11,0.25); color: #fed7aa; }
+
+    .category-work {
+      background: rgba(59, 130, 246, 0.12);
+      color: #1e4fd9;
+    }
+
+    .category-personal {
+      background: rgba(16, 185, 129, 0.12);
+      color: #0b8e5c;
+    }
+
+    .category-learning {
+      background: rgba(139, 92, 246, 0.12);
+      color: #6d3bcf;
+    }
+
+    .category-entertainment {
+      background: rgba(245, 158, 11, 0.12);
+      color: #c47d0b;
+    }
+
+    .theme-dark .category-work {
+      background: rgba(59, 130, 246, 0.25);
+      color: #bfdbfe;
+    }
+
+    .theme-dark .category-personal {
+      background: rgba(16, 185, 129, 0.25);
+      color: #a7f3d0;
+    }
+
+    .theme-dark .category-learning {
+      background: rgba(139, 92, 246, 0.25);
+      color: #ddd6fe;
+    }
+
+    .theme-dark .category-entertainment {
+      background: rgba(245, 158, 11, 0.25);
+      color: #fed7aa;
+    }
 
     /* stats cards – soft gradient, perfect on all screens */
     .stats-card {
@@ -154,12 +196,25 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      box-shadow: 0 10px 20px -8px rgba(59,130,246,0.3);
+      box-shadow: 0 10px 20px -8px rgba(59, 130, 246, 0.3);
       transition: transform 0.2s;
     }
-    .stats-card:active { transform: scale(0.98); }
-    .stats-card .number { font-size: 2rem; font-weight: 800; line-height: 1.2; }
-    .stats-card .label { font-size: 0.8rem; opacity: 0.95; font-weight: 500; }
+
+    .stats-card:active {
+      transform: scale(0.98);
+    }
+
+    .stats-card .number {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .stats-card .label {
+      font-size: 0.8rem;
+      opacity: 0.95;
+      font-weight: 500;
+    }
 
     /* floating action button – perfect for mobile, bigger hit area */
     .floating-action-btn {
@@ -175,14 +230,21 @@
       align-items: center;
       justify-content: center;
       font-size: 1.8rem;
-      box-shadow: 0 8px 20px rgba(59,130,246,0.4);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
       transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;
       border: none;
       z-index: 50;
     }
-    .floating-action-btn:hover { transform: scale(1.1) rotate(5deg); }
-    .floating-action-btn:active { transform: scale(0.9); background: linear-gradient(145deg, #2563eb, #7c3aed); }
+
+    .floating-action-btn:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .floating-action-btn:active {
+      transform: scale(0.9);
+      background: linear-gradient(145deg, #2563eb, #7c3aed);
+    }
 
     /* toast – fully responsive, centered */
     .toast {
@@ -194,7 +256,7 @@
       border-radius: 60px;
       background: white;
       color: #1e293b;
-      box-shadow: 0 15px 30px -10px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.2);
       z-index: 999;
       display: flex;
       align-items: center;
@@ -207,60 +269,115 @@
       max-width: 90vw;
       word-break: break-word;
     }
+
     .theme-dark .toast {
       background: #1e293b;
       color: #f1f5f9;
       border: 1px solid #475569;
     }
+
     .toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
       visibility: visible;
     }
-    .toast.success { border-left-color: #10b981; }
-    .toast.error { border-left-color: #ef4444; }
-    .toast.info { border-left-color: #3b82f6; }
+
+    .toast.success {
+      border-left-color: #10b981;
+    }
+
+    .toast.error {
+      border-left-color: #ef4444;
+    }
+
+    .toast.info {
+      border-left-color: #3b82f6;
+    }
 
     /* empty state illustrations */
-    .empty-illustration { opacity: 0.7; }
+    .empty-illustration {
+      opacity: 0.7;
+    }
 
     /* 100% responsive grid fixes */
     @media (max-width: 480px) {
-      .container { padding-left: 1rem; padding-right: 1rem; }
-      .bookmark-item { flex-direction: column; align-items: flex-start; }
-      .bookmark-actions { align-self: flex-end; margin-top: 0.5rem; }
-      .stats-card .number { font-size: 1.6rem; }
-      .floating-action-btn { width: 58px; height: 58px; font-size: 1.6rem; }
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .bookmark-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .bookmark-actions {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+      }
+
+      .stats-card .number {
+        font-size: 1.6rem;
+      }
+
+      .floating-action-btn {
+        width: 58px;
+        height: 58px;
+        font-size: 1.6rem;
+      }
     }
+
     @media (max-width: 380px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stats-card { padding: 0.8rem 0.2rem; }
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stats-card {
+        padding: 0.8rem 0.2rem;
+      }
     }
 
     /* improved focus rings for accessibility */
-    input:focus, select:focus, textarea:focus, button:focus {
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
       outline: 2px solid #3b82f6;
       outline-offset: 2px;
     }
-    .theme-dark input:focus, .theme-dark select:focus, .theme-dark textarea:focus {
+
+    .theme-dark input:focus,
+    .theme-dark select:focus,
+    .theme-dark textarea:focus {
       outline-color: #93c5fd;
     }
 
     /* animation for new items */
     @keyframes fadeSlide {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .fade-in {
       animation: fadeSlide 0.3s ease-out;
     }
 
     /* category filter – responsive width */
-    #categoryFilter, #searchInput {
-      min-height: 48px; /* better touch */
+    #categoryFilter,
+    #searchInput {
+      min-height: 48px;
+      /* better touch */
     }
   </style>
 </head>
+
 <body class="theme-light antialiased">
   <div class="container mx-auto px-4 py-5 md:py-8 max-w-6xl">
     <!-- ========== HEADER ========== -->
@@ -284,14 +401,15 @@
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-5 mb-8 stats-grid">
       <div class="stats-card"><span class="number" id="totalBookmarks">0</span><span class="label">Total</span></div>
       <div class="stats-card"><span class="number" id="workBookmarks">0</span><span class="label">Work</span></div>
-      <div class="stats-card"><span class="number" id="personalBookmarks">0</span><span class="label">Personal</span></div>
+      <div class="stats-card"><span class="number" id="personalBookmarks">0</span><span class="label">Personal</span>
+      </div>
       <div class="stats-card"><span class="number" id="recentBookmarks">0</span><span class="label">Last 7d</span></div>
     </div>
 
     <!-- ========== ADD/EDIT FORM – responsive, clean ========== -->
     <div class="card rounded-2xl shadow-xl p-5 md:p-6 mb-8 transition-all">
       <h2 class="text-lg md:text-xl font-semibold mb-4 flex items-center">
-        <i class="fas fa-plus-circle mr-2 text-blue-500 text-xl"></i> 
+        <i class="fas fa-plus-circle mr-2 text-blue-500 text-xl"></i>
         <span id="formHeading">Add new bookmark</span>
       </h2>
       <form id="bookmarkForm" class="space-y-5">
@@ -338,7 +456,7 @@
           </button>
           <button type="submit" id="saveBtn"
             class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-medium flex items-center shadow-lg hover:shadow-xl transition-all active:scale-95">
-            <i class="fas fa-plus mr-2"></i> 
+            <i class="fas fa-plus mr-2"></i>
             <span class="inline">Add</span>
           </button>
         </div>
@@ -391,6 +509,7 @@
     <span id="toastMessage">Bookmark saved</span>
   </div>
 
-  
+
 </body>
+
 </html>
