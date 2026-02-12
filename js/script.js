@@ -168,33 +168,26 @@ document.addEventListener("DOMContentLoaded", function () {
     bookmarksList.innerHTML = filteredBookmarks
       .map(
         (bookmark) => `
-                <div class="bookmark-item card rounded-lg p-4 flex justify-between items-center fade-in" data-id="${
-                  bookmark.id
-                }">
+                <div class="bookmark-item card rounded-lg p-4 flex justify-between items-center fade-in" data-id="${bookmark.id
+          }">
                   <div class="flex items-center overflow-hidden flex-1">
                     <div class="bookmark-icon mr-4 flex-shrink-0">
                       <i class="fas fa-bookmark"></i>
                     </div>
                     <div class="truncate flex-1">
-                      <a href="${
-                        bookmark.url
-                      }" target="_blank" class="text-blue-500 hover:underline font-medium block truncate">${
-          bookmark.title
-        }</a>
-                      <span class="text-gray-500 dark:text-gray-400 text-sm block truncate">${
-                        bookmark.url
-                      }</span>
-                      ${
-                        bookmark.description
-                          ? `<p class="text-gray-600 dark:text-gray-300 text-sm mt-1">${bookmark.description}</p>`
-                          : ""
-                      }
+                      <a href="${bookmark.url
+          }" target="_blank" class="text-blue-500 hover:underline font-medium block truncate">${bookmark.title
+          }</a>
+                      <span class="text-gray-500 dark:text-gray-400 text-sm block truncate">${bookmark.url
+          }</span>
+                      ${bookmark.description
+            ? `<p class="text-gray-600 dark:text-gray-300 text-sm mt-1">${bookmark.description}</p>`
+            : ""
+          }
                       <div class="mt-2">
-                        <span class="category-tag category-${
-                          bookmark.category
-                        }">${
-          bookmark.category.charAt(0).toUpperCase() + bookmark.category.slice(1)
-        }</span>
+                        <span class="category-tag category-${bookmark.category
+          }">${bookmark.category.charAt(0).toUpperCase() + bookmark.category.slice(1)
+          }</span>
                       </div>
                     </div>
                   </div>
