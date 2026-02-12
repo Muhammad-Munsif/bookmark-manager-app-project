@@ -1,195 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bookmark Manager</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body class="theme-light min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
-      <!-- Header -->
-      <header class="flex justify-between items-center mb-8">
-        <div class="flex items-center">
-          <div class="bookmark-icon mr-3">
-            <i class="fas fa-bookmark"></i>
-          </div>
-          <div>
-            <h1 class="text-2xl md:text-3xl font-bold">Bookmark Manager</h1>
-            <p class="text-gray-500 dark:text-gray-400 text-sm">
-              Organize your favorite websites
-            </p>
-          </div>
-        </div>
-        <button
-          id="themeToggle"
-          class="theme-toggle p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 shadow-md"
-        >
-          <i class="fas fa-moon"></i>
-        </button>
-      </header>
 
-      <!-- Stats Section -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="stats-card">
-          <div class="number" id="totalBookmarks">0</div>
-          <div class="label">Total Bookmarks</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookmark Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="theme-light min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8">
+      <div class="flex items-center">
+        <div class="bookmark-icon mr-3">
+          <i class="fas fa-bookmark"></i>
         </div>
-        <div class="stats-card">
-          <div class="number" id="workBookmarks">0</div>
-          <div class="label">Work</div>
-        </div>
-        <div class="stats-card">
-          <div class="number" id="personalBookmarks">0</div>
-          <div class="label">Personal</div>
-        </div>
-        <div class="stats-card">
-          <div class="number" id="recentBookmarks">0</div>
-          <div class="label">Added This Week</div>
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold">Bookmark Manager</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">
+            Organize your favorite websites
+          </p>
         </div>
       </div>
+      <button id="themeToggle"
+        class="theme-toggle p-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 shadow-md">
+        <i class="fas fa-moon"></i>
+      </button>
+    </header>
 
-      <!-- Add Bookmark Form -->
-      <div class="card rounded-xl shadow-lg p-6 mb-8">
-        <h2 class="text-xl font-semibold mb-4 flex items-center">
-          <i class="fas fa-plus-circle mr-2 text-blue-500"></i>
-          Add New Bookmark
-        </h2>
-        <form id="bookmarkForm" class="space-y-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="title" class="block mb-2 font-medium">Title</label>
-              <input
-                type="text"
-                id="title"
-                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
-                placeholder="My Favorite Website"
-                required
-              />
-            </div>
-            <div>
-              <label for="url" class="block mb-2 font-medium">URL</label>
-              <div class="relative">
-                <input
-                  type="url"
-                  id="url"
-                  class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10 transition-all"
-                  placeholder="https://example.com"
-                  required
-                />
-                <i
-                  class="fas fa-link absolute left-3 top-3.5 text-gray-400"
-                ></i>
-              </div>
-            </div>
-          </div>
-          <div>
-            <label for="category" class="block mb-2 font-medium"
-              >Category</label
-            >
-            <select
-              id="category"
-              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
-            >
-              <option value="personal">Personal</option>
-              <option value="work">Work</option>
-              <option value="learning">Learning</option>
-              <option value="entertainment">Entertainment</option>
-            </select>
-          </div>
-          <div>
-            <label for="description" class="block mb-2 font-medium"
-              >Description (Optional)</label
-            >
-            <textarea
-              id="description"
-              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
-              placeholder="Add a description for this bookmark..."
-              rows="2"
-            ></textarea>
-          </div>
-          <input type="hidden" id="bookmarkId" />
-          <div class="flex justify-end gap-3">
-            <button
-              type="reset"
-              id="cancelBtn"
-              class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hidden transition-all hover:bg-gray-100 dark:hover:bg-gray-600"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              id="saveBtn"
-              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all flex items-center shadow-md hover:shadow-lg"
-            >
-              <i class="fas fa-plus mr-2"></i>
-              <span class="hidden sm:inline">Add Bookmark</span>
-              <span class="sm:hidden">Add</span>
-            </button>
-          </div>
-        </form>
+    <!-- Stats Section -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="stats-card">
+        <div class="number" id="totalBookmarks">0</div>
+        <div class="label">Total Bookmarks</div>
       </div>
+      <div class="stats-card">
+        <div class="number" id="workBookmarks">0</div>
+        <div class="label">Work</div>
+      </div>
+      <div class="stats-card">
+        <div class="number" id="personalBookmarks">0</div>
+        <div class="label">Personal</div>
+      </div>
+      <div class="stats-card">
+        <div class="number" id="recentBookmarks">0</div>
+        <div class="label">Added This Week</div>
+      </div>
+    </div>
 
-      <!-- Search & Bookmarks -->
-      <div class="card rounded-xl shadow-lg p-6">
-        <div
-          class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4"
-        >
-          <h2 class="text-xl font-semibold flex items-center">
-            <i class="fas fa-bookmark mr-2 text-blue-500"></i>
-            Your Bookmarks
-          </h2>
-          <div class="flex gap-3">
-            <div class="relative w-full md:w-64">
-              <input
-                type="text"
-                id="searchInput"
+    <!-- Add Bookmark Form -->
+    <div class="card rounded-xl shadow-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-plus-circle mr-2 text-blue-500"></i>
+        Add New Bookmark
+      </h2>
+      <form id="bookmarkForm" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="title" class="block mb-2 font-medium">Title</label>
+            <input type="text" id="title"
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
+              placeholder="My Favorite Website" required />
+          </div>
+          <div>
+            <label for="url" class="block mb-2 font-medium">URL</label>
+            <div class="relative">
+              <input type="url" id="url"
                 class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10 transition-all"
-                placeholder="Search bookmarks..."
-              />
-              <i
-                class="fas fa-search absolute left-3 top-3.5 text-gray-400"
-              ></i>
+                placeholder="https://example.com" required />
+              <i class="fas fa-link absolute left-3 top-3.5 text-gray-400"></i>
             </div>
-            <select
-              id="categoryFilter"
-              class="p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
-            >
-              <option value="all">All Categories</option>
-              <option value="personal">Personal</option>
-              <option value="work">Work</option>
-              <option value="learning">Learning</option>
-              <option value="entertainment">Entertainment</option>
-            </select>
           </div>
         </div>
+        <div>
+          <label for="category" class="block mb-2 font-medium">Category</label>
+          <select id="category"
+            class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all">
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="learning">Learning</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+        </div>
+        <div>
+          <label for="description" class="block mb-2 font-medium">Description (Optional)</label>
+          <textarea id="description"
+            class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all"
+            placeholder="Add a description for this bookmark..." rows="2"></textarea>
+        </div>
+        <input type="hidden" id="bookmarkId" />
+        <div class="flex justify-end gap-3">
+          <button type="reset" id="cancelBtn"
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hidden transition-all hover:bg-gray-100 dark:hover:bg-gray-600">
+            Cancel
+          </button>
+          <button type="submit" id="saveBtn"
+            class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all flex items-center shadow-md hover:shadow-lg">
+            <i class="fas fa-plus mr-2"></i>
+            <span class="hidden sm:inline">Add Bookmark</span>
+            <span class="sm:hidden">Add</span>
+          </button>
+        </div>
+      </form>
+    </div>
 
-        <!-- Bookmarks List -->
-        <div id="bookmarksList" class="space-y-4">
-          <!-- Bookmarks will be added here dynamically -->
-          <div class="text-center py-12 text-gray-500" id="emptyState">
-            <i class="fas fa-bookmark text-5xl mb-4 text-gray-300"></i>
-            <p class="text-lg">No bookmarks yet. Add your first one!</p>
+    <!-- Search & Bookmarks -->
+    <div class="card rounded-xl shadow-lg p-6">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        <h2 class="text-xl font-semibold flex items-center">
+          <i class="fas fa-bookmark mr-2 text-blue-500"></i>
+          Your Bookmarks
+        </h2>
+        <div class="flex gap-3">
+          <div class="relative w-full md:w-64">
+            <input type="text" id="searchInput"
+              class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white pl-10 transition-all"
+              placeholder="Search bookmarks..." />
+            <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
           </div>
+          <select id="categoryFilter"
+            class="p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white transition-all">
+            <option value="all">All Categories</option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="learning">Learning</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bookmarks List -->
+      <div id="bookmarksList" class="space-y-4">
+        <!-- Bookmarks will be added here dynamically -->
+        <div class="text-center py-12 text-gray-500" id="emptyState">
+          <i class="fas fa-bookmark text-5xl mb-4 text-gray-300"></i>
+          <p class="text-lg">No bookmarks yet. Add your first one!</p>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Floating Action Button -->
-    <div class="floating-action-btn" id="addBookmarkBtn">
-      <i class="fas fa-plus"></i>
-    </div>
+  <!-- Floating Action Button -->
+  <div class="floating-action-btn" id="addBookmarkBtn">
+    <i class="fas fa-plus"></i>
+  </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-      <i class="fas fa-check-circle text-green-500"></i>
-      <span id="toastMessage">Bookmark added successfully!</span>
-    </div>
-    <script src="js/script.js"></script>
-  </body>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle text-green-500"></i>
+    <span id="toastMessage">Bookmark added successfully!</span>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+
 </html>
