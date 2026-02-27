@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
@@ -55,6 +56,7 @@
       background-color: var(--bg-dark) !important;
       color: var(--text-dark) !important;
     }
+
     .theme-light {
       background-color: var(--bg-light);
       color: var(--text-light);
@@ -66,10 +68,12 @@
       border: 1px solid var(--border-light);
       transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
+
     .theme-dark .card {
       background-color: var(--card-dark);
       border-color: var(--border-dark);
     }
+
     .theme-dark select,
     .theme-dark input,
     .theme-dark textarea,
@@ -78,6 +82,7 @@
       border-color: #334155;
       color: #f1f5f9;
     }
+
     .theme-dark option {
       background-color: #1e293b;
       color: #f1f5f9;
@@ -90,18 +95,21 @@
       margin-bottom: 10px;
       background-color: var(--card-light);
       border: 1px solid transparent;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
+
     .theme-dark .bookmark-item {
       background-color: var(--card-dark);
       border-color: var(--border-dark);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
+
     .bookmark-item:hover {
       transform: translateY(-3px);
       box-shadow: 0 14px 26px -8px rgba(0, 0, 0, 0.15);
       border-color: var(--primary-light);
     }
+
     .bookmark-item:active {
       background-color: rgba(59, 130, 246, 0.08);
       transform: scale(0.995);
@@ -119,7 +127,7 @@
       color: white;
       font-size: 1.5rem;
       flex-shrink: 0;
-      box-shadow: 0 6px 12px rgba(59,130,246,0.3);
+      box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
     }
 
     /* category tags – crisp, accessible contrast */
@@ -135,8 +143,9 @@
       margin-bottom: 0.3rem;
       background: rgba(59, 130, 246, 0.08);
       color: #2563eb;
-      border: 1px solid rgba(59,130,246,0.2);
+      border: 1px solid rgba(59, 130, 246, 0.2);
     }
+
     .theme-dark .category-tag {
       background: rgba(147, 197, 253, 0.12);
       color: #bfdbfe;
@@ -144,14 +153,45 @@
     }
 
     /* per‑category variation stays subtle */
-    .category-work { background: rgba(59, 130, 246, 0.15); color: #1e4fd9; }
-    .category-personal { background: rgba(16, 185, 129, 0.15); color: #0b8e5c; }
-    .category-learning { background: rgba(139, 92, 246, 0.15); color: #6d3bcf; }
-    .category-entertainment { background: rgba(245, 158, 11, 0.15); color: #c47d0b; }
-    .theme-dark .category-work { background: rgba(59, 130, 246, 0.25); color: #bfdbfe; }
-    .theme-dark .category-personal { background: rgba(16, 185, 129, 0.25); color: #a7f3d0; }
-    .theme-dark .category-learning { background: rgba(139, 92, 246, 0.25); color: #ddd6fe; }
-    .theme-dark .category-entertainment { background: rgba(245, 158, 11, 0.25); color: #fed7aa; }
+    .category-work {
+      background: rgba(59, 130, 246, 0.15);
+      color: #1e4fd9;
+    }
+
+    .category-personal {
+      background: rgba(16, 185, 129, 0.15);
+      color: #0b8e5c;
+    }
+
+    .category-learning {
+      background: rgba(139, 92, 246, 0.15);
+      color: #6d3bcf;
+    }
+
+    .category-entertainment {
+      background: rgba(245, 158, 11, 0.15);
+      color: #c47d0b;
+    }
+
+    .theme-dark .category-work {
+      background: rgba(59, 130, 246, 0.25);
+      color: #bfdbfe;
+    }
+
+    .theme-dark .category-personal {
+      background: rgba(16, 185, 129, 0.25);
+      color: #a7f3d0;
+    }
+
+    .theme-dark .category-learning {
+      background: rgba(139, 92, 246, 0.25);
+      color: #ddd6fe;
+    }
+
+    .theme-dark .category-entertainment {
+      background: rgba(245, 158, 11, 0.25);
+      color: #fed7aa;
+    }
 
     /* stats cards – improved visual hierarchy, better scaling */
     .stats-card {
@@ -168,9 +208,23 @@
       transition: transform 0.15s, box-shadow 0.2s;
       will-change: transform;
     }
-    .stats-card:active { transform: scale(0.96); box-shadow: 0 8px 15px -6px #3b82f6; }
-    .stats-card .number { font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
-    .stats-card .label { font-size: 0.85rem; opacity: 0.95; font-weight: 600; }
+
+    .stats-card:active {
+      transform: scale(0.96);
+      box-shadow: 0 8px 15px -6px #3b82f6;
+    }
+
+    .stats-card .number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .stats-card .label {
+      font-size: 0.85rem;
+      opacity: 0.95;
+      font-weight: 600;
+    }
 
     /* floating action button – bigger hit area, more presence */
     .floating-action-btn {
@@ -186,15 +240,23 @@
       align-items: center;
       justify-content: center;
       font-size: 2rem;
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(255,255,255,0.2);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.2);
       transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
       cursor: pointer;
       border: none;
       z-index: 50;
       backdrop-filter: blur(4px);
     }
-    .floating-action-btn:hover { transform: scale(1.12) rotate(3deg); box-shadow: 0 15px 30px #3b82f6; }
-    .floating-action-btn:active { transform: scale(0.92); background: linear-gradient(145deg, #2563eb, #7c3aed); }
+
+    .floating-action-btn:hover {
+      transform: scale(1.12) rotate(3deg);
+      box-shadow: 0 15px 30px #3b82f6;
+    }
+
+    .floating-action-btn:active {
+      transform: scale(0.92);
+      background: linear-gradient(145deg, #2563eb, #7c3aed);
+    }
 
     /* toast – ultra responsive, elevated, with icon */
     .toast {
@@ -206,7 +268,7 @@
       border-radius: 60px;
       background: white;
       color: #1e293b;
-      box-shadow: 0 25px 40px -14px rgba(0,0,0,0.3);
+      box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.3);
       z-index: 999;
       display: flex;
       align-items: center;
@@ -221,61 +283,137 @@
       font-size: 1rem;
       pointer-events: none;
     }
+
     .theme-dark .toast {
       background: #1e293b;
       color: #f1f5f9;
       border: 1px solid #475569;
     }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); visibility: visible; }
-    .toast.success { border-left-color: #10b981; }
-    .toast.error { border-left-color: #ef4444; }
-    .toast.info { border-left-color: #3b82f6; }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      visibility: visible;
+    }
+
+    .toast.success {
+      border-left-color: #10b981;
+    }
+
+    .toast.error {
+      border-left-color: #ef4444;
+    }
+
+    .toast.info {
+      border-left-color: #3b82f6;
+    }
 
     /* empty state – refined illustration */
-    .empty-illustration i { color: #cbd5e1; }
-    .theme-dark .empty-illustration i { color: #334155; }
+    .empty-illustration i {
+      color: #cbd5e1;
+    }
+
+    .theme-dark .empty-illustration i {
+      color: #334155;
+    }
 
     /* custom touch for very small devices */
     @media (max-width: 420px) {
-      .bookmark-item { padding: 1rem; }
-      .bookmark-icon { width: 44px; height: 44px; font-size: 1.3rem; border-radius: 14px; }
-      .stats-card .number { font-size: 1.8rem; }
-      .stats-card { border-radius: 20px; padding: 0.9rem 0.1rem; }
-      .floating-action-btn { width: 60px; height: 60px; font-size: 1.8rem; }
+      .bookmark-item {
+        padding: 1rem;
+      }
+
+      .bookmark-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+        border-radius: 14px;
+      }
+
+      .stats-card .number {
+        font-size: 1.8rem;
+      }
+
+      .stats-card {
+        border-radius: 20px;
+        padding: 0.9rem 0.1rem;
+      }
+
+      .floating-action-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+      }
     }
 
     /* improve grid break for stats on very tiny */
     @media (max-width: 360px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+      }
     }
 
     /* focus rings – accessible and beautiful */
-    input:focus, select:focus, textarea:focus, button:focus {
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
       outline: 3px solid #3b82f6;
       outline-offset: 3px;
     }
-    .theme-dark input:focus, .theme-dark select:focus, .theme-dark textarea:focus {
+
+    .theme-dark input:focus,
+    .theme-dark select:focus,
+    .theme-dark textarea:focus {
       outline-color: #93c5fd;
     }
 
     /* animation for new items */
     @keyframes gentleAppear {
-      0% { opacity: 0; transform: translateY(14px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .bookmark-item { animation: gentleAppear 0.3s ease-out; }
+
+    .bookmark-item {
+      animation: gentleAppear 0.3s ease-out;
+    }
 
     /* improved touch fields */
-    #categoryFilter, #searchInput, #title, #url, #category, #description {
+    #categoryFilter,
+    #searchInput,
+    #title,
+    #url,
+    #category,
+    #description {
       min-height: 56px;
-      font-size: 16px; /* prevents zoom on iOS */
+      font-size: 16px;
+      /* prevents zoom on iOS */
     }
-    textarea { resize: vertical; min-height: 56px; }
+
+    textarea {
+      resize: vertical;
+      min-height: 56px;
+    }
 
     /* category filter nicer */
-    .category-filter-el { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%233b82f6" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>'); background-repeat: no-repeat; background-position: right 1rem center; appearance: none; padding-right: 2.5rem; }
+    .category-filter-el {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%233b82f6" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      appearance: none;
+      padding-right: 2.5rem;
+    }
   </style>
 </head>
+
 <body class="theme-light antialiased">
   <div class="container mx-auto px-4 py-5 md:py-8 max-w-6xl">
     <!-- ========== HEADER refined ========== -->
@@ -285,8 +423,11 @@
           <i class="fa-solid fa-bookmark"></i>
         </div>
         <div>
-          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Bookmark Hub</h1>
-          <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">Your collection, everywhere — improved</p>
+          <h1
+            class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Bookmark Hub</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">Your collection, everywhere — improved
+          </p>
         </div>
       </div>
       <button id="themeToggle" aria-label="Switch theme"
@@ -299,7 +440,8 @@
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-5 mb-9 stats-grid">
       <div class="stats-card"><span class="number" id="totalBookmarks">0</span><span class="label">Total</span></div>
       <div class="stats-card"><span class="number" id="workBookmarks">0</span><span class="label">Work</span></div>
-      <div class="stats-card"><span class="number" id="personalBookmarks">0</span><span class="label">Personal</span></div>
+      <div class="stats-card"><span class="number" id="personalBookmarks">0</span><span class="label">Personal</span>
+      </div>
       <div class="stats-card"><span class="number" id="recentBookmarks">0</span><span class="label">Last 7d</span></div>
     </div>
 
@@ -312,7 +454,8 @@
       <form id="bookmarkForm" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label for="title" class="block mb-2 text-sm font-semibold">Title <span class="text-red-400">*</span></label>
+            <label for="title" class="block mb-2 text-sm font-semibold">Title <span
+                class="text-red-400">*</span></label>
             <input type="text" id="title" autocomplete="off"
               class="w-full p-4 border-2 rounded-2xl focus:ring-4 focus:ring-blue-300 bg-white dark:bg-gray-800 transition-all"
               placeholder="e.g. GitHub">
@@ -402,7 +545,7 @@
   </div>
 
   <script>
-    (function() {
+    (function () {
       "use strict";
 
       // ========== DOM elements ==========
@@ -441,7 +584,7 @@
           bookmarks = stored ? JSON.parse(stored) : [];
           // ensure ids & timestamps
           bookmarks = bookmarks.map(b => ({
-            id: b.id || Date.now() + '-' + Math.random().toString(36).substring(2,8),
+            id: b.id || Date.now() + '-' + Math.random().toString(36).substring(2, 8),
             title: b.title || 'Untitled',
             url: b.url || '',
             category: b.category || 'personal',
@@ -494,8 +637,8 @@
       // ----- escape HTML (prevent XSS) -----
       function escapeHTML(str) {
         if (!str) return '';
-        return String(str).replace(/[&<>"]/g, function(c) {
-          if(c === '&') return '&amp;'; if(c === '<') return '&lt;'; if(c === '>') return '&gt;'; if(c === '"') return '&quot;';
+        return String(str).replace(/[&<>"]/g, function (c) {
+          if (c === '&') return '&amp;'; if (c === '<') return '&lt;'; if (c === '>') return '&gt;'; if (c === '"') return '&quot;';
           return c;
         });
       }
@@ -617,7 +760,7 @@
           cancelBtn.classList.add('hidden');
         } else {
           const newBm = {
-            id: Date.now().toString() + '-' + Math.random().toString(36).substring(2,8),
+            id: Date.now().toString() + '-' + Math.random().toString(36).substring(2, 8),
             title, url, category, description: description || '',
             createdAt: new Date().toISOString()
           };
@@ -703,7 +846,7 @@
         categoryFilter.addEventListener('change', () => renderBookmarks());
         addBookmarkBtn.addEventListener('click', scrollToForm);
 
-        bookmarkForm.addEventListener('reset', function() {
+        bookmarkForm.addEventListener('reset', function () {
           setTimeout(() => {
             if (!isEditing) {
               cancelBtn.classList.add('hidden');
@@ -721,4 +864,5 @@
     })();
   </script>
 </body>
+
 </html>
