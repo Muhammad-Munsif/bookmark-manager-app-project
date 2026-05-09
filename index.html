@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
@@ -7,8 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  
+
 </head>
+
 <body class="theme-light antialiased overflow-x-hidden">
   <!-- Loading overlay -->
   <div id="loadingOverlay" class="loading-overlay">
@@ -21,7 +23,8 @@
       <div class="flex items-center gap-3">
         <div class="bookmark-icon shadow-xl"><i class="fa-solid fa-bookmark"></i></div>
         <div>
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1
+            class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Bookmark Hub
           </h1>
           <p class="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mt-0.5">Your collection, everywhere — Pro</p>
@@ -39,7 +42,8 @@
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-5 mb-9">
       <div class="stats-card"><span class="number" id="totalBookmarks">0</span><span class="label">Total</span></div>
       <div class="stats-card"><span class="number" id="workBookmarks">0</span><span class="label">Work</span></div>
-      <div class="stats-card"><span class="number" id="personalBookmarks">0</span><span class="label">Personal</span></div>
+      <div class="stats-card"><span class="number" id="personalBookmarks">0</span><span class="label">Personal</span>
+      </div>
       <div class="stats-card"><span class="number" id="recentBookmarks">0</span><span class="label">Last 7d</span></div>
     </div>
 
@@ -52,7 +56,8 @@
       <form id="bookmarkForm" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label for="title" class="block mb-2 text-sm font-semibold">Title <span class="text-red-400">*</span></label>
+            <label for="title" class="block mb-2 text-sm font-semibold">Title <span
+                class="text-red-400">*</span></label>
             <input type="text" id="title" autocomplete="off"
               class="w-full p-4 border-2 rounded-2xl focus:ring-4 focus:ring-blue-300 bg-white dark:bg-gray-800 transition-all text-base"
               placeholder="e.g. GitHub">
@@ -125,13 +130,16 @@
 
       <!-- Tool buttons -->
       <div class="flex flex-wrap gap-3 mb-6">
-        <button id="exportBtn" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold shadow-lg transition-all active:scale-95">
+        <button id="exportBtn"
+          class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold shadow-lg transition-all active:scale-95">
           <i class="fas fa-download mr-2"></i> Export
         </button>
-        <button id="importBtn" class="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-2xl font-semibold shadow-lg transition-all active:scale-95">
+        <button id="importBtn"
+          class="px-5 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-2xl font-semibold shadow-lg transition-all active:scale-95">
           <i class="fas fa-upload mr-2"></i> Import
         </button>
-        <button id="clearAllBtn" class="px-5 py-3 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold shadow-lg transition-all active:scale-95">
+        <button id="clearAllBtn"
+          class="px-5 py-3 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold shadow-lg transition-all active:scale-95">
           <i class="fas fa-trash-can mr-2"></i> Clear All
         </button>
         <input type="file" id="importFileInput" accept=".json" class="hidden">
@@ -156,6 +164,7 @@
     <button id="toastUndoBtn" class="undo-btn hidden">Undo</button>
   </div>
 
-  
+
 </body>
+
 </html>
