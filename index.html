@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <title>Bookmark Vault | Smart Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #93c5fd;
+      --secondary: #8b5cf6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --bg-light: #f1f5f9;
+      --bg-dark: #0f172a;
+      --text-light: #0f172a;
+      --text-dark: #eef2ff;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --border-light: #e2e8f0;
+      --border-dark: #334155;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      transition: background 0.25s ease, color 0.2s;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .theme-dark {
+      background-color: var(--bg-dark) !important;
+      color: var(--text-dark) !important;
+    }
+
+    .card-modern {
+      background-color: var(--card-light);
+      border-radius: 2rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .theme-dark .card-modern {
+      background-color: var(--card-dark);
+      border-color: var(--border-dark);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+    }
+
+    .stats-glass {
+      background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(139,92,246,0.9));
+      backdrop-filter: blur(2px);
+      border-radius: 1.8rem;
+      padding: 1rem 0.5rem;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 14px 22px -12px rgba(59,130,246,0.35);
+    }
+
+    .stats-glass:active {
+      transform: scale(0.96);
+    }
+
+    .bookmark-item-card {
+      background-color: var(--card-light);
+      border-radius: 1.5rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      margin-bottom: 0.875rem;
+      overflow: hidden;
+    }
+
+    .theme-dark .bookmark-item-card {
+      background-color: var(--card-dark);
+      border-color: var(--border-dark);
+    }
+
+    .bookmark-item-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.12);
+      border-color: var(--primary-light);
+    }
+
+    .icon-fav {
+      background: linear-gradient(145deg, #3b82f6, #8b5cf6);
+      width: 52px;
+      height: 52px;
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: white;
+      box-shadow: 0 8px 14px rgba(59,130,246,0.3);
+      flex-shrink: 0;
+    }
+
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      text-transform: capitalize;
+      background: rgba(59,130,246,0.1);
+      color: #2563eb;
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+
+    .theme-dark .category-badge {
+      background: rgba(147,197,253,0.12);
+      color: #b9d0ff;
+    }
+
+    .badge-work { background: rgba(59,130,246,0.18); color: #1e4fd9; }
+    .badge-personal { background: rgba(16,185,129,0.15); color: #0b8e5c; }
+    .badge-learning { background: rgba(139,92,246,0.15); color: #6d3bcf; }
+    .badge-entertainment { background: rgba(245,158,11,0.15); color: #c47d0b; }
+    .theme-dark .badge-work { background: rgba(59,130,246,0.25); color: #bfdbfe; }
+    .theme-dark .badge-personal { background: rgba(16,185,129,0.25); color: #a7f3d0; }
+    .theme-dark .badge-learning { background: rgba(139,92,246,0.25); color: #ddd6fe; }
+    .theme-dark .badge-entertainment { background: rgba(245,158,11,0.25); color: #fed7aa; }
+
+    .floating-plus {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 1.8rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #3b82f6, #7c3aed);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 12px 24px rgba(59,130,246,0.5);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      z-index: 40;
+      border: none;
+    }
+
+    .floating-plus:active { transform: scale(0.9); background: #2563eb; }
+    @media (hover: hover) { .floating-plus:hover { transform: scale(1.07); box-shadow: 0 20px 30px #3b82f6; } }
+
+    .toast-notice {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: white;
+      backdrop-filter: blur(16px);
+      padding: 0.9rem 1.8rem;
+      border-radius: 3rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      font-weight: 600;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s;
+      border-left: 5px solid var(--success);
+      max-width: 90vw;
+    }
+    .theme-dark .toast-notice { background: #1e293b; border: 1px solid #475569; color: #f1f5f9; }
+    .toast-notice.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+    .loading-pulse {
+      position: fixed;
+      inset: 0;
+      background: rgba(241,245,249,0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: 0.2s;
+    }
+    .theme-dark .loading-pulse { background: rgba(15,23,42,0.85); }
+    .loading-pulse.hide { opacity: 0; visibility: hidden; }
+    .pulse-ring { width: 56px; height: 56px; border: 5px solid #cbd5e1; border-top: 5px solid #3b82f6; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    input, select, textarea {
+      transition: all 0.2s;
+      background-color: white;
+    }
+    .theme-dark input, .theme-dark select, .theme-dark textarea {
+      background-color: #0f172a;
+      border-color: #334155;
+      color: #f1f5f9;
+    }
+    input:focus, select:focus, textarea:focus, button:focus {
+      outline: 3px solid #3b82f6;
+      outline-offset: 3px;
+    }
+    .animate-fade { animation: gentle 0.3s ease-out; }
+    @keyframes gentle { 0% { opacity: 0; transform: translateY(12px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 640px) {
+      .stats-glass .number { font-size: 1.6rem; }
+      .floating-plus { width: 54px; height: 54px; bottom: 1.2rem; right: 1.2rem; }
+      .card-modern { border-radius: 1.5rem; }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden theme-light">
+
+  <div id="loader" class="loading-pulse"><div class="pulse-ring"></div></div>
+
+  <div class="container max-w-6xl mx-auto px-5 md:px-6 py-6 md:py-8">
+    <!-- header -->
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+      <div class="flex items-center gap-3">
+        <div class="icon-fav shadow-xl"><i class="fa-solid fa-layer-group"></i></div>
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Bookmark Vault</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-0.5">Your digital sanctuary · responsive</p>
+        </div>
+      </div>
+      <button id="themeSwitch" class="p-3.5 rounded-full bg-white/70 dark:bg-gray-800 shadow-md text-gray-700 dark:text-gray-200 hover:shadow-lg transition-all active:scale-95 text-xl backdrop-blur-sm"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+      <div class="stats-glass text-white text-center"><div class="number text-3xl font-black" id="statTotal">0</div><div class="text-xs font-semibold uppercase tracking-wide">Total</div></div>
+      <div class="stats-glass text-white text-center"><div class="number text-3xl font-black" id="statWork">0</div><div class="text-xs font-semibold uppercase tracking-wide">Work</div></div>
+      <div class="stats-glass text-white text-center"><div class="number text-3xl font-black" id="statPersonal">0</div><div class="text-xs font-semibold uppercase tracking-wide">Personal</div></div>
+      <div class="stats-glass text-white text-center"><div class="number text-3xl font-black" id="statRecent">0</div><div class="text-xs font-semibold uppercase tracking-wide">Last 7d</div></div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card-modern p-6 md:p-7 mb-9">
+      <div class="flex items-center gap-2 mb-5 border-b pb-3 border-gray-200 dark:border-gray-700">
+        <i class="fas fa-plus-circle text-blue-500 text-2xl"></i>
+        <h2 class="text-xl md:text-2xl font-bold" id="formTitle">➕ Add new bookmark</h2>
+      </div>
+      <form id="bookmarkForm" class="space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div><label class="block text-sm font-semibold mb-1.5">Title <span class="text-red-400">*</span></label><input type="text" id="title" placeholder="Google Drive" class="w-full p-3.5 border-2 rounded-xl focus:ring-2"></div>
+          <div><label class="block text-sm font-semibold mb-1.5">URL <span class="text-red-400">*</span></label><input type="url" id="url" placeholder="https://" class="w-full p-3.5 border-2 rounded-xl"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div><label class="block text-sm font-semibold mb-1.5">Category</label><select id="category" class="w-full p-3.5 border-2 rounded-xl bg-white dark:bg-gray-800"><option value="personal">📖 Personal</option><option value="work">💼 Work</option><option value="learning">🎓 Learning</option><option value="entertainment">🎬 Entertainment</option></select></div>
+          <div><label class="block text-sm font-semibold mb-1.5">Description (optional)</label><textarea id="description" rows="2" class="w-full p-3.5 border-2 rounded-xl resize-none" placeholder="Any notes..."></textarea></div>
+        </div>
+        <input type="hidden" id="editId">
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" id="cancelFormBtn" class="px-6 py-3 border-2 rounded-xl font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 hidden transition-all">Cancel</button>
+          <button type="submit" id="submitBtn" class="px-7 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-xl transition-all flex items-center gap-2"><i class="fas fa-save"></i> <span>Save</span></button>
+        </div>
+      </form>
+    </div>
+
+    <!-- List + Filters card -->
+    <div class="card-modern p-6 md:p-7">
+      <div class="flex flex-col md:flex-row justify-between md:items-center gap-5 mb-6">
+        <h2 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-bookmark text-blue-500"></i> My collection</h2>
+        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <div class="relative flex-1"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text" id="searchField" placeholder="Search title or url..." class="w-full pl-11 pr-4 py-3.5 border-2 rounded-xl"></div>
+          <select id="categoryFilter" class="w-full sm:w-44 py-3.5 px-4 border-2 rounded-xl bg-white dark:bg-gray-800"><option value="all">📌 All</option><option value="work">💼 Work</option><option value="personal">📖 Personal</option><option value="learning">🎓 Learning</option><option value="entertainment">🎬 Entertainment</option></select>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mb-7">
+        <button id="exportDataBtn" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold"><i class="fas fa-download"></i> Export .json</button>
+        <button id="importDataBtn" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold"><i class="fas fa-upload"></i> Import</button>
+        <button id="clearEverythingBtn" class="px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold"><i class="fas fa-trash-alt"></i> Clear all</button>
+        <input type="file" id="importFile" accept=".json" class="hidden">
+      </div>
+
+      <div id="bookmarksContainer" class="space-y-3 min-h-[260px]">
+        <!-- dynamic list -->
+      </div>
+    </div>
+  </div>
+
+  <button id="fabAddBtn" class="floating-plus" aria-label="quick add"><i class="fas fa-plus"></i></button>
+  <div id="toastMsg" class="toast-notice"><i id="toastIcon" class="fas fa-check-circle text-green-500 text-xl"></i><span id="toastText">Saved</span><button id="undoActionBtn" class="ml-3 text-blue-500 font-bold hidden bg-transparent">Undo</button></div>
+
+  <script>
+    (function() {
+      // ----- DOM elements
+      const loader = document.getElementById('loader');
+      const themeBtn = document.getElementById('themeSwitch');
+      const form = document.getElementById('bookmarkForm');
+      const titleInp = document.getElementById('title');
+      const urlInp = document.getElementById('url');
+      const catInp = document.getElementById('category');
+      const descInp = document.getElementById('description');
+      const editIdInp = document.getElementById('editId');
+      const cancelBtn = document.getElementById('cancelFormBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const formTitleSpan = document.getElementById('formTitle');
+      const searchField = document.getElementById('searchField');
+      const categoryFilter = document.getElementById('categoryFilter');
+      const bookmarksDiv = document.getElementById('bookmarksContainer');
+      const fab = document.getElementById('fabAddBtn');
+      const exportBtn = document.getElementById('exportDataBtn');
+      const importBtn = document.getElementById('importDataBtn');
+      const importFileInput = document.getElementById('importFile');
+      const clearAllBtn = document.getElementById('clearEverythingBtn');
+      const toastEl = document.getElementById('toastMsg');
+      const toastText = document.getElementById('toastText');
+      const toastIconSpan = document.getElementById('toastIcon');
+      const undoBtn = document.getElementById('undoActionBtn');
+
+      // stats
+      const statTotal = document.getElementById('statTotal');
+      const statWork = document.getElementById('statWork');
+      const statPersonal = document.getElementById('statPersonal');
+      const statRecent = document.getElementById('statRecent');
+
+      let bookmarks = [];
+      let isEditing = false;
+      let lastDeletedItem = null;
+      let undoTimeout = null;
+
+      // helpers
+      function isValidHttpUrl(str) {
+        try { new URL(str); return true; } catch { return false; }
+      }
+      function escapeHtml(str) { if(!str) return ''; return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+      function showToast(message, type = 'success', withUndo = null) {
+        toastText.innerText = message;
+        toastIconSpan.className = type === 'error' ? 'fas fa-exclamation-triangle text-red-500 text-xl' : 'fas fa-check-circle text-green-500 text-xl';
+        toastEl.classList.add('show');
+        if (withUndo && typeof withUndo === 'function') {
+          undoBtn.classList.remove('hidden');
+          undoBtn.onclick = () => { withUndo(); toastEl.classList.remove('show'); clearTimeout(undoTimeout); };
+        } else { undoBtn.classList.add('hidden'); undoBtn.onclick = null; }
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3800);
+      }
+
+      function saveToLocal() { localStorage.setItem('bookmark_pro_v2', JSON.stringify(bookmarks)); }
+
+      function loadFromLocal() {
+        try {
+          const stored = localStorage.getItem('bookmark_pro_v2');
+          if(stored) bookmarks = JSON.parse(stored);
+          else bookmarks = [];
+          if(!Array.isArray(bookmarks)) bookmarks = [];
+          bookmarks = bookmarks.map(b => ({ ...b, id: b.id || Date.now() + '-' + Math.random().toString(36).substr(2,6), createdAt: b.createdAt || new Date().toISOString() }));
+        } catch(e) { bookmarks = []; }
+      }
+
+      function updateStatsUI() {
+        const total = bookmarks.length;
+        const workCount = bookmarks.filter(b => b.category === 'work').length;
+        const personalCount = bookmarks.filter(b => b.category === 'personal').length;
+        const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+        const recentCount = bookmarks.filter(b => new Date(b.createdAt) >= weekAgo).length;
+        statTotal.innerText = total;
+        statWork.innerText = workCount;
+        statPersonal.innerText = personalCount;
+        statRecent.innerText = recentCount;
+      }
+
+      function renderBookmarks() {
+        const searchTerm = searchField.value.trim().toLowerCase();
+        const catVal = categoryFilter.value;
+        let filtered = bookmarks.filter(b => {
+          const matchesSearch = searchTerm === '' || b.title.toLowerCase().includes(searchTerm) || b.url.toLowerCase().includes(searchTerm) || (b.description && b.description.toLowerCase().includes(searchTerm));
+          const matchesCat = catVal === 'all' || b.category === catVal;
+          return matchesSearch && matchesCat;
+        });
+        filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        if(filtered.length === 0) {
+          bookmarksDiv.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-gray-400"><i class="fas fa-inbox text-6xl mb-4 opacity-50"></i><p class="text-lg font-medium">No bookmarks found</p><p class="text-sm">Create your first one ✨</p></div>`;
+          updateStatsUI();
+          return;
+        }
+
+        let html = '';
+        filtered.forEach(bm => {
+          let catClass = `category-badge `;
+          if(bm.category === 'work') catClass += 'badge-work';
+          else if(bm.category === 'personal') catClass += 'badge-personal';
+          else if(bm.category === 'learning') catClass += 'badge-learning';
+          else catClass += 'badge-entertainment';
+          const catDisplay = bm.category.charAt(0).toUpperCase() + bm.category.slice(1);
+          const descHtml = bm.description ? `<p class="text-gray-500 dark:text-gray-400 text-sm mt-1.5 line-clamp-2">${escapeHtml(bm.description)}</p>` : '';
+          html += `
+            <div class="bookmark-item-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-fade" data-id="${escapeHtml(bm.id)}">
+              <div class="flex gap-4 flex-1 min-w-0">
+                <div class="icon-fav !w-12 !h-12 !rounded-xl text-lg"><i class="fa-solid fa-link"></i></div>
+                <div class="flex-1 min-w-0">
+                  <a href="${escapeHtml(bm.url)}" target="_blank" rel="noopener" class="text-blue-700 dark:text-blue-400 font-bold text-lg hover:underline break-all">${escapeHtml(bm.title)}</a>
+                  <div class="text-gray-500 dark:text-gray-400 text-sm truncate">${escapeHtml(bm.url)}</div>
+                  ${descHtml}
+                  <div class="mt-2 flex flex-wrap gap-1"><span class="${catClass}">${catDisplay}</span></div>
+                </div>
+              </div>
+              <div class="flex gap-2 self-end sm:self-center">
+                <button class="edit-bookmark p-2.5 rounded-xl hover:bg-blue-100 dark:hover:bg-gray-700 text-blue-600 transition"><i class="fas fa-pen text-lg"></i></button>
+                <button class="del-bookmark p-2.5 rounded-xl hover:bg-red-100 dark:hover:bg-gray-700 text-red-500 transition"><i class="fas fa-trash-can text-lg"></i></button>
+              </div>
+            </div>`;
+        });
+        bookmarksDiv.innerHTML = html;
+        updateStatsUI();
+
+        document.querySelectorAll('.edit-bookmark').forEach(btn => {
+          btn.addEventListener('click', (e) => { const card = e.target.closest('[data-id]'); if(card) editBookmarkById(card.dataset.id); });
+        });
+        document.querySelectorAll('.del-bookmark').forEach(btn => {
+          btn.addEventListener('click', (e) => { const card = e.target.closest('[data-id]'); if(card) deleteBookmarkById(card.dataset.id); });
+        });
+      }
+
+      function resetForm() {
+        form.reset();
+        editIdInp.value = '';
+        isEditing = false;
+        formTitleSpan.innerHTML = '➕ Add new bookmark';
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> <span>Save</span>';
+        cancelBtn.classList.add('hidden');
+        urlInp.classList.remove('border-red-500');
+      }
+
+      function editBookmarkById(id) {
+        const bm = bookmarks.find(b => b.id === id);
+        if(!bm) return;
+        titleInp.value = bm.title;
+        urlInp.value = bm.url;
+        catInp.value = bm.category;
+        descInp.value = bm.description || '';
+        editIdInp.value = bm.id;
+        isEditing = true;
+        formTitleSpan.innerHTML = '✏️ Edit bookmark';
+        submitBtn.innerHTML = '<i class="fas fa-pen"></i> <span>Update</span>';
+        cancelBtn.classList.remove('hidden');
+        document.querySelector('.card-modern').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        titleInp.focus();
+      }
+
+      function deleteBookmarkById(id) {
+        const index = bookmarks.findIndex(b => b.id === id);
+        if(index === -1) return;
+        lastDeletedItem = bookmarks[index];
+        bookmarks.splice(index,1);
+        saveToLocal();
+        renderBookmarks();
+        showToast('Bookmark removed', 'info', () => {
+          if(lastDeletedItem) {
+            bookmarks.push(lastDeletedItem);
+            saveToLocal();
+            renderBookmarks();
+            showToast('Restored bookmark', 'success');
+            lastDeletedItem = null;
+          }
+        });
+      }
+
+      function addOrUpdateBookmark(e) {
+        e.preventDefault();
+        const title = titleInp.value.trim();
+        let url = urlInp.value.trim();
+        const category = catInp.value;
+        const description = descInp.value.trim();
+        if(!title || !url) { showToast('Title & URL required', 'error'); return; }
+        if(!isValidHttpUrl(url)) { urlInp.classList.add('border-red-500'); showToast('Enter a valid URL (https://...)', 'error'); return; }
+        urlInp.classList.remove('border-red-500');
+
+        if(isEditing && editIdInp.value) {
+          const idx = bookmarks.findIndex(b => b.id === editIdInp.value);
+          if(idx !== -1) {
+            bookmarks[idx] = { ...bookmarks[idx], title, url, category, description };
+            saveToLocal();
+            showToast('Updated successfully', 'success');
+            resetForm();
+            renderBookmarks();
+          }
+        } else {
+          const newBookmark = {
+            id: Date.now() + '-' + Math.random().toString(36).substring(2,10),
+            title, url, category, description: description || '',
+            createdAt: new Date().toISOString()
+          };
+          bookmarks.unshift(newBookmark);
+          saveToLocal();
+          showToast('Bookmark added', 'success');
+          resetForm();
+          renderBookmarks();
+        }
+        searchField.value = '';
+        categoryFilter.value = 'all';
+        renderBookmarks();
+      }
+
+      function cancelEditing() { resetForm(); }
+
+      function exportData() {
+        const dataStr = JSON.stringify(bookmarks, null, 2);
+        const blob = new Blob([dataStr], {type: 'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `bookmark_export_${new Date().toISOString().slice(0,19)}.json`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast('Exported JSON', 'success');
+      }
+
+      function importData(file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const imported = JSON.parse(ev.target.result);
+            if(!Array.isArray(imported)) throw new Error();
+            let added = 0;
+            imported.forEach(item => {
+              if(item.url && item.title && !bookmarks.some(b => b.url === item.url)) {
+                bookmarks.push({
+                  id: Date.now() + '-' + Math.random().toString(36).substr(2,8),
+                  title: item.title,
+                  url: item.url,
+                  category: item.category || 'personal',
+                  description: item.description || '',
+                  createdAt: item.createdAt || new Date().toISOString()
+                });
+                added++;
+              }
+            });
+            if(added) { saveToLocal(); renderBookmarks(); showToast(`Imported ${added} items`, 'success'); }
+            else showToast('No new bookmarks added (duplicates)', 'info');
+          } catch(e) { showToast('Invalid JSON file', 'error'); }
+        };
+        reader.readAsText(file);
+      }
+
+      function clearAll() {
+        if(bookmarks.length === 0) return;
+        if(confirm(`⚠️ Permanently delete ${bookmarks.length} bookmarks?`)) {
+          bookmarks = [];
+          saveToLocal();
+          renderBookmarks();
+          showToast('All bookmarks cleared', 'info');
+        }
+      }
+
+      // Theme
+      function setTheme(theme) {
+        if(theme === 'dark') {
+          document.body.classList.add('theme-dark');
+          document.body.classList.remove('theme-light');
+          themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+          localStorage.setItem('bm_theme', 'dark');
+        } else {
+          document.body.classList.add('theme-light');
+          document.body.classList.remove('theme-dark');
+          themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+          localStorage.setItem('bm_theme', 'light');
+        }
+      }
+      function initTheme() {
+        const saved = localStorage.getItem('bm_theme') || 'light';
+        setTheme(saved);
+      }
+      function toggleThemeAction() {
+        const isDark = document.body.classList.contains('theme-dark');
+        setTheme(isDark ? 'light' : 'dark');
+      }
+
+      // keyboard
+      function keyHandler(e) {
+        if((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement !== searchField)) {
+          e.preventDefault(); searchField.focus();
+        }
+        if(e.key === 'Escape') searchField.blur();
+      }
+
+      function init() {
+        loadFromLocal();
+        initTheme();
+        renderBookmarks();
+        setTimeout(() => { loader.classList.add('hide'); }, 400);
+        form.addEventListener('submit', addOrUpdateBookmark);
+        cancelBtn.addEventListener('click', cancelEditing);
+        searchField.addEventListener('input', renderBookmarks);
+        categoryFilter.addEventListener('change', renderBookmarks);
+        fab.addEventListener('click', () => { resetForm(); document.querySelector('.card-modern').scrollIntoView({ behavior: 'smooth' }); titleInp.focus(); });
+        exportBtn.addEventListener('click', exportData);
+        importBtn.addEventListener('click', () => importFileInput.click());
+        importFileInput.addEventListener('change', (e) => { if(e.target.files[0]) importData(e.target.files[0]); importFileInput.value = ''; });
+        clearAllBtn.addEventListener('click', clearAll);
+        themeBtn.addEventListener('click', toggleThemeAction);
+        document.addEventListener('keydown', keyHandler);
+        window.addEventListener('load', () => { if(bookmarks.length === 0) renderBookmarks(); });
+      }
+      init();
+    })();
+  </script>
+</body>
+</html>
