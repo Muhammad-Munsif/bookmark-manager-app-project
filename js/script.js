@@ -1,4 +1,4 @@
-  <script>
+  
     (function () {
       // ----- DOM elements
       const loader = document.getElementById('loader');
@@ -312,4 +312,4 @@
       }
       init();
     })();
-  </script></script>
+  
