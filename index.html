@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <title>Bookmark Vault | Pro Edition</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #60a5fa;
+      --secondary: #8b5cf6;
+      --secondary-dark: #7c3aed;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --bg-light: #f0f4f8;
+      --bg-dark: #0a0f1c;
+      --text-light: #0f172a;
+      --text-dark: #eef2ff;
+      --card-light: #ffffff;
+      --card-dark: #111827;
+      --border-light: #e2e8f0;
+      --border-dark: #1f2937;
+      --accent-glow: rgba(59,130,246,0.2);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      transition: background 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.2s;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .theme-dark {
+      background-color: var(--bg-dark) !important;
+      color: var(--text-dark) !important;
+    }
+
+    /* Glass morphism card */
+    .card-glass {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    }
+    .theme-dark .card-glass {
+      background: rgba(17,24,39,0.75);
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .card-glass:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+    }
+
+    /* Animated stats cards */
+    .stat-card {
+      background: linear-gradient(145deg, #ffffff, #f8fafc);
+      border-radius: 1.8rem;
+      padding: 1rem 0.5rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      border: 1px solid rgba(59,130,246,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .theme-dark .stat-card {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border-color: rgba(59,130,246,0.3);
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .stat-card:hover::before { left: 100%; }
+    .stat-number { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .theme-dark .stat-number { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; background-clip: text; }
+
+    /* Modern bookmark card with micro-interactions */
+    .bookmark-card {
+      background: var(--card-light);
+      border-radius: 1.5rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      margin-bottom: 0.875rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .theme-dark .bookmark-card {
+      background: var(--card-dark);
+      border-color: var(--border-dark);
+    }
+    .bookmark-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+      border-color: var(--primary-light);
+    }
+    .bookmark-favicon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, #3b82f6, #8b5cf6);
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: white;
+      transition: transform 0.2s;
+    }
+    .bookmark-card:hover .bookmark-favicon { transform: scale(1.05) rotate(3deg); }
+
+    /* Category chips modern */
+    .chip-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s;
+    }
+    .chip-work { background: rgba(59,130,246,0.15); color: #2563eb; border-left: 3px solid #3b82f6; }
+    .chip-personal { background: rgba(16,185,129,0.12); color: #059669; border-left: 3px solid #10b981; }
+    .chip-learning { background: rgba(139,92,246,0.12); color: #7c3aed; border-left: 3px solid #8b5cf6; }
+    .chip-entertainment { background: rgba(245,158,11,0.12); color: #d97706; border-left: 3px solid #f59e0b; }
+    .theme-dark .chip-work { background: rgba(59,130,246,0.25); color: #93c5fd; }
+    .theme-dark .chip-personal { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+    .theme-dark .chip-learning { background: rgba(139,92,246,0.25); color: #c4b5fd; }
+    .theme-dark .chip-entertainment { background: rgba(245,158,11,0.25); color: #fcd34d; }
+
+    /* FAB with pulse animation */
+    .fab-glow {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #3b82f6, #7c3aed);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 12px 28px rgba(59,130,246,0.5);
+      cursor: pointer;
+      z-index: 50;
+      transition: all 0.2s;
+      border: none;
+      animation: gentlePulse 2s infinite;
+    }
+    @keyframes gentlePulse { 0% { box-shadow: 0 12px 28px rgba(59,130,246,0.4); } 50% { box-shadow: 0 18px 38px rgba(59,130,246,0.8); } 100% { box-shadow: 0 12px 28px rgba(59,130,246,0.4); } }
+    .fab-glow:active { transform: scale(0.92); animation: none; }
+    @media (hover: hover) { .fab-glow:hover { transform: scale(1.08); box-shadow: 0 24px 40px #3b82f6; } }
+
+    /* Neomorphic inputs */
+    .neo-input {
+      background: #ffffff;
+      border: 2px solid transparent;
+      transition: all 0.25s;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .theme-dark .neo-input { background: #1f2937; color: #f1f5f9; }
+    .neo-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59,130,246,0.2); outline: none; }
+
+    /* Toast premium */
+    .toast-premium {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-weight: 600;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.25);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s;
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+    .theme-dark .toast-premium { background: #1e293b; border-color: #334155; }
+    .toast-premium.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+    /* Loading premium */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(240,244,248,0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transition: 0.3s;
+    }
+    .theme-dark .loader-overlay { background: rgba(10,15,28,0.9); }
+    .loader-overlay.hide { opacity: 0; visibility: hidden; }
+    .loader-spinner { width: 70px; height: 70px; border: 4px solid rgba(59,130,246,0.2); border-top: 4px solid #3b82f6; border-radius: 50%; animation: spin 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite; box-shadow: 0 0 15px rgba(59,130,246,0.3); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* empty state */
+    .empty-zone i { filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1)); }
+    .theme-dark .empty-zone i { filter: drop-shadow(0 8px 12px rgba(59,130,246,0.2)); }
+
+    /* animations */
+    @keyframes slideUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    .bookmark-card { animation: slideUp 0.35s ease-out; }
+
+    /* responsive refinement */
+    @media (max-width: 640px) {
+      .fab-glow { width: 56px; height: 56px; bottom: 1.2rem; right: 1.2rem; font-size: 1.5rem; }
+      .card-glass { border-radius: 1.5rem; }
+      .stat-card { border-radius: 1.2rem; }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden theme-light">
+
+  <div id="loaderOverlay" class="loader-overlay"><div class="loader-spinner"></div></div>
+
+  <div class="container max-w-6xl mx-auto px-5 md:px-6 py-6 md:py-8">
+    <!-- header with animated gradient -->
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-10">
+      <div class="flex items-center gap-4">
+        <div class="bookmark-favicon !w-14 !h-14 !rounded-2xl shadow-xl"><i class="fa-solid fa-crown"></i></div>
+        <div>
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent animate-pulse">Bookmark Vault</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-1 flex items-center gap-1"><i class="fas fa-shield-alt text-blue-500"></i> Pro · Cloud sync ready · Smart organizer</p>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <button id="themeSwitch" class="p-3.5 rounded-full bg-white/80 dark:bg-gray-800 shadow-lg text-gray-700 dark:text-gray-200 transition-all active:scale-95 text-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700"><i class="fas fa-moon"></i></button>
+      </div>
+    </div>
+
+    <!-- Stats with new design -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+      <div class="stat-card text-center"><i class="fas fa-layer-group text-blue-400 text-xl mb-1"></i><div class="stat-number" id="statTotal">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Total saved</div></div>
+      <div class="stat-card text-center"><i class="fas fa-briefcase text-indigo-400 text-xl mb-1"></i><div class="stat-number" id="statWork">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Work</div></div>
+      <div class="stat-card text-center"><i class="fas fa-heart text-pink-400 text-xl mb-1"></i><div class="stat-number" id="statPersonal">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Personal</div></div>
+      <div class="stat-card text-center"><i class="fas fa-calendar-week text-green-400 text-xl mb-1"></i><div class="stat-number" id="statRecent">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Last 7 days</div></div>
+    </div>
+
+    <!-- Form Card - Glass morphism -->
+    <div class="card-glass p-7 md:p-8 mb-10">
+      <div class="flex items-center gap-3 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-md"><i class="fas fa-magic"></i></div>
+        <h2 class="text-2xl font-bold" id="formTitle">✨ Create new bookmark</h2>
+      </div>
+      <form id="bookmarkForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-heading text-blue-500 mr-1"></i> Title <span class="text-red-400">*</span></label><input type="text" id="title" placeholder="e.g., GitHub Copilot" class="neo-input w-full p-4 rounded-2xl"></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-link text-purple-500 mr-1"></i> URL <span class="text-red-400">*</span></label><input type="url" id="url" placeholder="https://" class="neo-input w-full p-4 rounded-2xl"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-tags text-green-500 mr-1"></i> Category</label><select id="category" class="neo-input w-full p-4 rounded-2xl bg-white dark:bg-gray-800"><option value="personal">📒 Personal</option><option value="work">💼 Work</option><option value="learning">🎓 Learning</option><option value="entertainment">🎮 Entertainment</option></select></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-pen-alt text-gray-500 mr-1"></i> Description</label><textarea id="description" rows="2" class="neo-input w-full p-4 rounded-2xl resize-none" placeholder="Add notes or tags..."></textarea></div>
+        </div>
+        <input type="hidden" id="editId">
+        <div class="flex justify-end gap-4 pt-3">
+          <button type="button" id="cancelFormBtn" class="px-7 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all hidden">Cancel</button>
+          <button type="submit" id="submitBtn" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-xl transition-all flex items-center gap-2"><i class="fas fa-plus-circle"></i> <span>Save Bookmark</span></button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Filter & Bookmarks Section -->
+    <div class="card-glass p-7 md:p-8">
+      <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-5 mb-7">
+        <h2 class="text-2xl font-bold flex items-center gap-2"><i class="fas fa-archive text-blue-500"></i> Your Library</h2>
+        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+          <div class="relative flex-1 lg:w-72"><i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text" id="searchField" placeholder="Search by title, url, description..." class="neo-input w-full pl-12 pr-5 py-4 rounded-2xl"></div>
+          <select id="categoryFilter" class="neo-input py-4 px-5 rounded-2xl w-full sm:w-48 bg-white dark:bg-gray-800"><option value="all">📌 All categories</option><option value="work">💼 Work</option><option value="personal">❤️ Personal</option><option value="learning">📚 Learning</option><option value="entertainment">🎬 Entertainment</option></select>
+        </div>
+      </div>
+
+      <!-- Tools bar advanced -->
+      <div class="flex flex-wrap gap-3 mb-8 pb-3 border-b border-gray-200 dark:border-gray-700">
+        <button id="exportDataBtn" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-download"></i> Export Backup</button>
+        <button id="importDataBtn" class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-upload"></i> Import JSON</button>
+        <button id="clearEverythingBtn" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-trash-alt"></i> Wipe All</button>
+        <input type="file" id="importFile" accept=".json" class="hidden">
+      </div>
+
+      <!-- Bookmarks dynamic area -->
+      <div id="bookmarksContainer" class="space-y-3 min-h-[280px]">
+        <!-- js renders here -->
+      </div>
+    </div>
+  </div>
+
+  <button id="fabAddBtn" class="fab-glow" aria-label="Quick add"><i class="fas fa-plus"></i></button>
+  <div id="toastMsg" class="toast-premium"><i id="toastIcon" class="fas fa-check-circle text-green-500 text-xl"></i><span id="toastText" class="text-sm md:text-base">Action done</span><button id="undoActionBtn" class="ml-4 text-blue-600 font-bold hidden bg-transparent hover:underline">Undo</button></div>
+
+  <script>
+    (function() {
+      // DOM elements
+      const loader = document.getElementById('loaderOverlay');
+      const themeBtn = document.getElementById('themeSwitch');
+      const form = document.getElementById('bookmarkForm');
+      const titleInp = document.getElementById('title');
+      const urlInp = document.getElementById('url');
+      const catInp = document.getElementById('category');
+      const descInp = document.getElementById('description');
+      const editIdInp = document.getElementById('editId');
+      const cancelBtn = document.getElementById('cancelFormBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const formTitleSpan = document.getElementById('formTitle');
+      const searchField = document.getElementById('searchField');
+      const categoryFilter = document.getElementById('categoryFilter');
+      const bookmarksDiv = document.getElementById('bookmarksContainer');
+      const fab = document.getElementById('fabAddBtn');
+      const exportBtn = document.getElementById('exportDataBtn');
+      const importBtn = document.getElementById('importDataBtn');
+      const importFileInput = document.getElementById('importFile');
+      const clearAllBtn = document.getElementById('clearEverythingBtn');
+      const toastEl = document.getElementById('toastMsg');
+      const toastTextSpan = document.getElementById('toastText');
+      const toastIconSpan = document.getElementById('toastIcon');
+      const undoBtn = document.getElementById('undoActionBtn');
+
+      const statTotal = document.getElementById('statTotal');
+      const statWork = document.getElementById('statWork');
+      const statPersonal = document.getElementById('statPersonal');
+      const statRecent = document.getElementById('statRecent');
+
+      let bookmarks = [];
+      let isEditing = false;
+      let lastDeletedItem = null;
+
+      // helpers
+      function isValidUrl(str) { try { new URL(str); return true; } catch { return false; } }
+      function escapeHtml(str) { if(!str) return ''; return String(str).replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m] || m)); }
+
+      function showToast(msg, type = 'success', withUndo = null) {
+        toastTextSpan.innerText = msg;
+        toastIconSpan.className = type === 'error' ? 'fas fa-exclamation-triangle text-red-500 text-xl' : 'fas fa-check-circle text-green-500 text-xl';
+        toastEl.classList.add('show');
+        if (withUndo && typeof withUndo === 'function') {
+          undoBtn.classList.remove('hidden');
+          undoBtn.onclick = () => { withUndo(); toastEl.classList.remove('show'); clearTimeout(window.undoTimer); };
+        } else { undoBtn.classList.add('hidden'); undoBtn.onclick = null; }
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3800);
+      }
+
+      function saveToLocal() { localStorage.setItem('bookmark_vault_pro', JSON.stringify(bookmarks)); }
+
+      function loadFromLocal() {
+        try {
+          const stored = localStorage.getItem('bookmark_vault_pro');
+          bookmarks = stored ? JSON.parse(stored) : [];
+          if (!Array.isArray(bookmarks)) bookmarks = [];
+          bookmarks = bookmarks.map(b => ({ ...b, id: b.id || Date.now() + '-' + Math.random().toString(36).substr(2,8), createdAt: b.createdAt || new Date().toISOString() }));
+        } catch(e) { bookmarks = []; }
+      }
+
+      function updateStats() {
+        const total = bookmarks.length;
+        const work = bookmarks.filter(b => b.category === 'work').length;
+        const personal = bookmarks.filter(b => b.category === 'personal').length;
+        const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+        const recent = bookmarks.filter(b => new Date(b.createdAt) >= weekAgo).length;
+        statTotal.innerText = total;
+        statWork.innerText = work;
+        statPersonal.innerText = personal;
+        statRecent.innerText = recent;
+      }
+
+      function renderBookmarks() {
+        const searchTerm = searchField.value.trim().toLowerCase();
+        const catVal = categoryFilter.value;
+        let filtered = bookmarks.filter(b => {
+          const matchSearch = searchTerm === '' || b.title.toLowerCase().includes(searchTerm) || b.url.toLowerCase().includes(searchTerm) || (b.description && b.description.toLowerCase().includes(searchTerm));
+          const matchCat = catVal === 'all' || b.category === catVal;
+          return matchSearch && matchCat;
+        });
+        filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        if(filtered.length === 0) {
+          bookmarksDiv.innerHTML = `<div class="empty-zone flex flex-col items-center py-20 text-gray-400"><i class="fas fa-folder-open text-7xl mb-5 opacity-30"></i><p class="text-xl font-semibold">No treasures found</p><p class="text-sm mt-1">Add a bookmark or adjust filters</p></div>`;
+          updateStats(); return;
+        }
+
+        let html = '';
+        filtered.forEach(bm => {
+          let chipClass = '';
+          if(bm.category === 'work') chipClass = 'chip-work';
+          else if(bm.category === 'personal') chipClass = 'chip-personal';
+          else if(bm.category === 'learning') chipClass = 'chip-learning';
+          else chipClass = 'chip-entertainment';
+          const catDisplay = bm.category.charAt(0).toUpperCase() + bm.category.slice(1);
+          const descHtml = bm.description ? `<p class="text-gray-500 dark:text-gray-400 text-sm mt-1.5 line-clamp-2 break-words">${escapeHtml(bm.description)}</p>` : '';
+          html += `
+            <div class="bookmark-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-id="${escapeHtml(bm.id)}">
+              <div class="flex gap-4 flex-1 min-w-0">
+                <div class="bookmark-favicon !w-12 !h-12 !rounded-xl flex-shrink-0"><i class="fa-regular fa-bookmark"></i></div>
+                <div class="flex-1 min-w-0">
+                  <a href="${escapeHtml(bm.url)}" target="_blank" rel="noopener" class="text-blue-700 dark:text-blue-400 font-extrabold text-lg hover:underline break-all">${escapeHtml(bm.title)}</a>
+                  <div class="text-gray-500 dark:text-gray-400 text-sm truncate">${escapeHtml(bm.url)}</div>
+                  ${descHtml}
+                  <div class="mt-2"><span class="chip-category ${chipClass}"><i class="fas fa-tag text-xs"></i> ${catDisplay}</span></div>
+                </div>
+              </div>
+              <div class="flex gap-2 self-end sm:self-center">
+                <button class="edit-action p-3 rounded-xl hover:bg-blue-100 dark:hover:bg-gray-700 text-blue-600 transition-all"><i class="fas fa-edit text-lg"></i></button>
+                <button class="delete-action p-3 rounded-xl hover:bg-red-100 dark:hover:bg-gray-700 text-red-500 transition-all"><i class="fas fa-trash-alt text-lg"></i></button>
+              </div>
+            </div>`;
+        });
+        bookmarksDiv.innerHTML = html;
+        updateStats();
+
+        document.querySelectorAll('.edit-action').forEach(btn => {
+          btn.addEventListener('click', (e) => { const card = e.target.closest('[data-id]'); if(card) editBookmark(card.dataset.id); });
+        });
+        document.querySelectorAll('.delete-action').forEach(btn => {
+          btn.addEventListener('click', (e) => { const card = e.target.closest('[data-id]'); if(card) deleteBookmark(card.dataset.id); });
+        });
+      }
+
+      function resetFormUI() {
+        form.reset();
+        editIdInp.value = '';
+        isEditing = false;
+        formTitleSpan.innerHTML = '✨ Create new bookmark';
+        submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> <span>Save Bookmark</span>';
+        cancelBtn.classList.add('hidden');
+        urlInp.classList.remove('border-red-500');
+      }
+
+      function editBookmark(id) {
+        const bm = bookmarks.find(b => b.id === id);
+        if(!bm) return;
+        titleInp.value = bm.title;
+        urlInp.value = bm.url;
+        catInp.value = bm.category;
+        descInp.value = bm.description || '';
+        editIdInp.value = bm.id;
+        isEditing = true;
+        formTitleSpan.innerHTML = '✏️ Edit bookmark';
+        submitBtn.innerHTML = '<i class="fas fa-pen-fancy"></i> <span>Update Changes</span>';
+        cancelBtn.classList.remove('hidden');
+        document.querySelector('.card-glass').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        titleInp.focus();
+      }
+
+      function deleteBookmark(id) {
+        const index = bookmarks.findIndex(b => b.id === id);
+        if(index === -1) return;
+        lastDeletedItem = bookmarks[index];
+        bookmarks.splice(index,1);
+        saveToLocal();
+        renderBookmarks();
+        showToast('🗑️ Bookmark deleted', 'info', () => {
+          if(lastDeletedItem) {
+            bookmarks.push(lastDeletedItem);
+            saveToLocal();
+            renderBookmarks();
+            showToast('↩️ Restored successfully', 'success');
+            lastDeletedItem = null;
+          }
+        });
+      }
+
+      function addOrUpdate(e) {
+        e.preventDefault();
+        const title = titleInp.value.trim();
+        let url = urlInp.value.trim();
+        const category = catInp.value;
+        const description = descInp.value.trim();
+        if(!title || !url) { showToast('Title & URL are required', 'error'); return; }
+        if(!isValidUrl(url)) { urlInp.classList.add('border-red-500'); showToast('Please enter a valid URL (https://...)', 'error'); return; }
+        urlInp.classList.remove('border-red-500');
+
+        if(isEditing && editIdInp.value) {
+          const idx = bookmarks.findIndex(b => b.id === editIdInp.value);
+          if(idx !== -1) {
+            bookmarks[idx] = { ...bookmarks[idx], title, url, category, description };
+            saveToLocal();
+            showToast('✏️ Bookmark updated', 'success');
+            resetFormUI();
+            renderBookmarks();
+          }
+        } else {
+          const newBm = { id: Date.now() + '-' + Math.random().toString(36).substring(2,10), title, url, category, description: description || '', createdAt: new Date().toISOString() };
+          bookmarks.unshift(newBm);
+          saveToLocal();
+          showToast('✅ Bookmark added to vault', 'success');
+          resetFormUI();
+          renderBookmarks();
+        }
+        searchField.value = '';
+        categoryFilter.value = 'all';
+        renderBookmarks();
+      }
+
+      function cancelEdit() { resetFormUI(); }
+      function exportData() {
+        const dataStr = JSON.stringify(bookmarks, null, 2);
+        const blob = new Blob([dataStr], {type: 'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `bookmarks_backup_${new Date().toISOString().slice(0,19)}.json`;
+        a.click(); URL.revokeObjectURL(a.href);
+        showToast('📦 Exported vault backup', 'success');
+      }
+      function importData(file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const imported = JSON.parse(ev.target.result);
+            if(!Array.isArray(imported)) throw new Error();
+            let added = 0;
+            imported.forEach(item => {
+              if(item.url && item.title && !bookmarks.some(b => b.url === item.url)) {
+                bookmarks.push({ id: Date.now()+ '-' + Math.random().toString(36).substr(2,8), title: item.title, url: item.url, category: item.category || 'personal', description: item.description || '', createdAt: item.createdAt || new Date().toISOString() });
+                added++;
+              }
+            });
+            if(added) { saveToLocal(); renderBookmarks(); showToast(`📥 Imported ${added} new bookmarks`, 'success'); }
+            else showToast('No new items (duplicates skipped)', 'info');
+          } catch(e) { showToast('Invalid JSON file', 'error'); }
+        };
+        reader.readAsText(file);
+      }
+      function clearAll() {
+        if(bookmarks.length === 0) return;
+        if(confirm(`⚠️ PERMANENT: Delete ${bookmarks.length} bookmarks?`)) { bookmarks = []; saveToLocal(); renderBookmarks(); showToast('🧹 All bookmarks cleared', 'info'); }
+      }
+
+      // theme
+      function setTheme(theme) {
+        if(theme === 'dark') {
+          document.body.classList.add('theme-dark'); document.body.classList.remove('theme-light');
+          themeBtn.innerHTML = '<i class="fas fa-sun"></i>'; localStorage.setItem('vault_theme', 'dark');
+        } else {
+          document.body.classList.add('theme-light'); document.body.classList.remove('theme-dark');
+          themeBtn.innerHTML = '<i class="fas fa-moon"></i>'; localStorage.setItem('vault_theme', 'light');
+        }
+      }
+      function initTheme() { setTheme(localStorage.getItem('vault_theme') || 'light'); }
+
+      // keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement !== searchField)) { e.preventDefault(); searchField.focus(); }
+        if(e.key === 'Escape') searchField.blur();
+      });
+
+      function init() {
+        loadFromLocal(); initTheme(); renderBookmarks();
+        setTimeout(() => loader.classList.add('hide'), 500);
+        form.addEventListener('submit', addOrUpdate);
+        cancelBtn.addEventListener('click', cancelEdit);
+        searchField.addEventListener('input', renderBookmarks);
+        categoryFilter.addEventListener('change', renderBookmarks);
+        fab.addEventListener('click', () => { resetFormUI(); document.querySelector('.card-glass').scrollIntoView({ behavior: 'smooth' }); titleInp.focus(); });
+        exportBtn.addEventListener('click', exportData);
+        importBtn.addEventListener('click', () => importFileInput.click());
+        importFileInput.addEventListener('change', (e) => { if(e.target.files[0]) importData(e.target.files[0]); importFileInput.value = ''; });
+        clearAllBtn.addEventListener('click', clearAll);
+        themeBtn.addEventListener('click', () => setTheme(document.body.classList.contains('theme-dark') ? 'light' : 'dark'));
+      }
+      init();
+    })();
+  </script>
+</body>
+</html>
