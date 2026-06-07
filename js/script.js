@@ -1,4 +1,4 @@
-<script>
+
     (function () {
       // DOM elements
       const loader = document.getElementById('loaderOverlay');
@@ -269,4 +269,4 @@
       }
       init();
     })();
-  </script></script>
+  
