@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
   <title>Bookmark Vault | Ultra Edition</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
- <link rel="stylesheet" href="css/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="antialiased overflow-x-hidden theme-light">
 
-  <div id="loaderOverlay" class="loader-overlay"><div class="loader-spinner"></div></div>
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-spinner"></div>
+  </div>
 
   <div class="container max-w-6xl mx-auto px-5 md:px-6 py-6 md:py-8">
     <!-- Header with dynamic quote -->
@@ -19,44 +26,86 @@
       <div class="flex items-center gap-4">
         <div class="bookmark-favicon !w-14 !h-14 !rounded-2xl shadow-xl"><i class="fa-solid fa-gem"></i></div>
         <div>
-          <h1 class="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Bookmark Vault</h1>
-          <p class="text-gray-500 dark:text-gray-400 text-xs mt-1 flex items-center gap-1"><i class="fas fa-bolt text-yellow-500"></i> Ultra · Smart sort · Priority tags</p>
+          <h1
+            class="text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Bookmark Vault</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-xs mt-1 flex items-center gap-1"><i
+              class="fas fa-bolt text-yellow-500"></i> Ultra · Smart sort · Priority tags</p>
         </div>
       </div>
       <div class="flex gap-3">
-        <button id="statsModalBtn" class="p-3.5 rounded-full bg-white/80 dark:bg-gray-800 shadow-lg text-gray-700 dark:text-gray-200 transition-all active:scale-95 backdrop-blur-sm border border-gray-200 dark:border-gray-700" title="Statistics"><i class="fas fa-chart-simple"></i></button>
-        <button id="themeSwitch" class="p-3.5 rounded-full bg-white/80 dark:bg-gray-800 shadow-lg text-gray-700 dark:text-gray-200 transition-all active:scale-95 text-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700"><i class="fas fa-moon"></i></button>
+        <button id="statsModalBtn"
+          class="p-3.5 rounded-full bg-white/80 dark:bg-gray-800 shadow-lg text-gray-700 dark:text-gray-200 transition-all active:scale-95 backdrop-blur-sm border border-gray-200 dark:border-gray-700"
+          title="Statistics"><i class="fas fa-chart-simple"></i></button>
+        <button id="themeSwitch"
+          class="p-3.5 rounded-full bg-white/80 dark:bg-gray-800 shadow-lg text-gray-700 dark:text-gray-200 transition-all active:scale-95 text-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700"><i
+            class="fas fa-moon"></i></button>
       </div>
     </div>
 
     <!-- Stats Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
-      <div class="stat-card text-center" data-stat="total"><i class="fas fa-database text-blue-400 text-xl mb-1"></i><div class="stat-number" id="statTotal">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Total</div></div>
-      <div class="stat-card text-center" data-stat="work"><i class="fas fa-briefcase text-indigo-400 text-xl mb-1"></i><div class="stat-number" id="statWork">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Work</div></div>
-      <div class="stat-card text-center" data-stat="personal"><i class="fas fa-heart text-pink-400 text-xl mb-1"></i><div class="stat-number" id="statPersonal">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Personal</div></div>
-      <div class="stat-card text-center" data-stat="recent"><i class="fas fa-calendar-week text-green-400 text-xl mb-1"></i><div class="stat-number" id="statRecent">0</div><div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">New (7d)</div></div>
+      <div class="stat-card text-center" data-stat="total"><i class="fas fa-database text-blue-400 text-xl mb-1"></i>
+        <div class="stat-number" id="statTotal">0</div>
+        <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Total</div>
+      </div>
+      <div class="stat-card text-center" data-stat="work"><i class="fas fa-briefcase text-indigo-400 text-xl mb-1"></i>
+        <div class="stat-number" id="statWork">0</div>
+        <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Work</div>
+      </div>
+      <div class="stat-card text-center" data-stat="personal"><i class="fas fa-heart text-pink-400 text-xl mb-1"></i>
+        <div class="stat-number" id="statPersonal">0</div>
+        <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Personal</div>
+      </div>
+      <div class="stat-card text-center" data-stat="recent"><i
+          class="fas fa-calendar-week text-green-400 text-xl mb-1"></i>
+        <div class="stat-number" id="statRecent">0</div>
+        <div class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">New (7d)</div>
+      </div>
     </div>
 
     <!-- Form Card -->
     <div class="card-glass p-7 md:p-8 mb-10">
       <div class="flex items-center gap-3 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-md"><i class="fas fa-magic"></i></div>
+        <div
+          class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-md">
+          <i class="fas fa-magic"></i></div>
         <h2 class="text-2xl font-bold" id="formTitle">✨ Create new bookmark</h2>
       </div>
       <form id="bookmarkForm" class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-heading text-blue-500 mr-1"></i> Title <span class="text-red-400">*</span></label><input type="text" id="title" placeholder="e.g., GitHub Copilot" class="neo-input w-full p-4 rounded-2xl"></div>
-          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-link text-purple-500 mr-1"></i> URL <span class="text-red-400">*</span></label><input type="url" id="url" placeholder="https://" class="neo-input w-full p-4 rounded-2xl"></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-heading text-blue-500 mr-1"></i> Title <span
+                class="text-red-400">*</span></label><input type="text" id="title" placeholder="e.g., GitHub Copilot"
+              class="neo-input w-full p-4 rounded-2xl"></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-link text-purple-500 mr-1"></i> URL <span
+                class="text-red-400">*</span></label><input type="url" id="url" placeholder="https://"
+              class="neo-input w-full p-4 rounded-2xl"></div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-tags text-green-500 mr-1"></i> Category</label><select id="category" class="neo-input w-full p-4 rounded-2xl"><option value="personal">📒 Personal</option><option value="work">💼 Work</option><option value="learning">🎓 Learning</option><option value="entertainment">🎮 Entertainment</option></select></div>
-          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-flag text-orange-500 mr-1"></i> Priority</label><select id="priority" class="neo-input w-full p-4 rounded-2xl"><option value="low">🟢 Low</option><option value="medium">🟡 Medium</option><option value="high">🔴 High</option></select></div>
-          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-pen-alt text-gray-500 mr-1"></i> Description</label><textarea id="description" rows="2" class="neo-input w-full p-4 rounded-2xl resize-none" placeholder="Add notes..."></textarea></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-tags text-green-500 mr-1"></i>
+              Category</label><select id="category" class="neo-input w-full p-4 rounded-2xl">
+              <option value="personal">📒 Personal</option>
+              <option value="work">💼 Work</option>
+              <option value="learning">🎓 Learning</option>
+              <option value="entertainment">🎮 Entertainment</option>
+            </select></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-flag text-orange-500 mr-1"></i>
+              Priority</label><select id="priority" class="neo-input w-full p-4 rounded-2xl">
+              <option value="low">🟢 Low</option>
+              <option value="medium">🟡 Medium</option>
+              <option value="high">🔴 High</option>
+            </select></div>
+          <div><label class="block text-sm font-bold mb-2"><i class="fas fa-pen-alt text-gray-500 mr-1"></i>
+              Description</label><textarea id="description" rows="2"
+              class="neo-input w-full p-4 rounded-2xl resize-none" placeholder="Add notes..."></textarea></div>
         </div>
         <input type="hidden" id="editId">
         <div class="flex justify-end gap-4 pt-3">
-          <button type="button" id="cancelFormBtn" class="px-7 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all hidden">Cancel</button>
-          <button type="submit" id="submitBtn" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-xl transition-all flex items-center gap-2"><i class="fas fa-plus-circle"></i> <span>Save Bookmark</span></button>
+          <button type="button" id="cancelFormBtn"
+            class="px-7 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all hidden">Cancel</button>
+          <button type="submit" id="submitBtn"
+            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-xl transition-all flex items-center gap-2"><i
+              class="fas fa-plus-circle"></i> <span>Save Bookmark</span></button>
         </div>
       </form>
     </div>
@@ -64,20 +113,42 @@
     <!-- Filter & Bookmarks Section -->
     <div class="card-glass p-7 md:p-8">
       <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-5 mb-7">
-        <h2 class="text-2xl font-bold flex items-center gap-2"><i class="fas fa-archive text-blue-500"></i> Your Library</h2>
+        <h2 class="text-2xl font-bold flex items-center gap-2"><i class="fas fa-archive text-blue-500"></i> Your Library
+        </h2>
         <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-          <div class="relative flex-1 lg:w-72"><i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text" id="searchField" placeholder="Search..." class="neo-input w-full pl-12 pr-5 py-4 rounded-2xl"></div>
-          <select id="categoryFilter" class="neo-input py-4 px-5 rounded-2xl w-full sm:w-44"><option value="all">📌 All</option><option value="work">💼 Work</option><option value="personal">❤️ Personal</option><option value="learning">📚 Learning</option><option value="entertainment">🎬 Entertainment</option></select>
-          <select id="sortBy" class="neo-input py-4 px-5 rounded-2xl w-full sm:w-40"><option value="date">📅 Newest first</option><option value="oldest">📅 Oldest first</option><option value="title">🔤 Title A-Z</option><option value="priority">⭐ Priority</option></select>
+          <div class="relative flex-1 lg:w-72"><i
+              class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text"
+              id="searchField" placeholder="Search..." class="neo-input w-full pl-12 pr-5 py-4 rounded-2xl"></div>
+          <select id="categoryFilter" class="neo-input py-4 px-5 rounded-2xl w-full sm:w-44">
+            <option value="all">📌 All</option>
+            <option value="work">💼 Work</option>
+            <option value="personal">❤️ Personal</option>
+            <option value="learning">📚 Learning</option>
+            <option value="entertainment">🎬 Entertainment</option>
+          </select>
+          <select id="sortBy" class="neo-input py-4 px-5 rounded-2xl w-full sm:w-40">
+            <option value="date">📅 Newest first</option>
+            <option value="oldest">📅 Oldest first</option>
+            <option value="title">🔤 Title A-Z</option>
+            <option value="priority">⭐ Priority</option>
+          </select>
         </div>
       </div>
 
       <!-- Tools bar -->
       <div class="flex flex-wrap gap-3 mb-8 pb-3 border-b border-gray-200 dark:border-gray-700">
-        <button id="exportDataBtn" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-download"></i> Export</button>
-        <button id="importDataBtn" class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-upload"></i> Import</button>
-        <button id="clearEverythingBtn" class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-trash-alt"></i> Wipe All</button>
-        <button id="sampleDataBtn" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i class="fas fa-flask"></i> Demo Samples</button>
+        <button id="exportDataBtn"
+          class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i
+            class="fas fa-download"></i> Export</button>
+        <button id="importDataBtn"
+          class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i
+            class="fas fa-upload"></i> Import</button>
+        <button id="clearEverythingBtn"
+          class="px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i
+            class="fas fa-trash-alt"></i> Wipe All</button>
+        <button id="sampleDataBtn"
+          class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl shadow-md flex items-center gap-2 text-sm font-semibold transition-all"><i
+            class="fas fa-flask"></i> Demo Samples</button>
         <input type="file" id="importFile" accept=".json" class="hidden">
       </div>
 
@@ -86,16 +157,23 @@
   </div>
 
   <button id="fabAddBtn" class="fab-glow" aria-label="Quick add"><i class="fas fa-plus"></i></button>
-  <div id="toastMsg" class="toast-premium"><i id="toastIcon" class="fas fa-check-circle text-green-500 text-xl"></i><span id="toastText">Action done</span><button id="undoActionBtn" class="ml-4 text-blue-600 font-bold hidden bg-transparent hover:underline">Undo</button></div>
+  <div id="toastMsg" class="toast-premium"><i id="toastIcon"
+      class="fas fa-check-circle text-green-500 text-xl"></i><span id="toastText">Action done</span><button
+      id="undoActionBtn" class="ml-4 text-blue-600 font-bold hidden bg-transparent hover:underline">Undo</button></div>
 
   <!-- Stats Modal -->
-  <div id="statsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[150] hidden transition-all">
+  <div id="statsModal"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[150] hidden transition-all">
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 max-w-sm w-full mx-4 shadow-2xl">
-      <div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold">📊 Insights</h3><button id="closeModalBtn" class="text-gray-500 text-2xl">&times;</button></div>
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">📊 Insights</h3><button id="closeModalBtn"
+          class="text-gray-500 text-2xl">&times;</button>
+      </div>
       <div id="modalStatsContent" class="space-y-3 text-sm"></div>
     </div>
   </div>
 
-  
+
 </body>
+
 </html>
