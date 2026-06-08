@@ -1,4 +1,4 @@
-<script>
+
     (function() {
       const loader = document.getElementById('loaderOverlay');
       const themeBtn = document.getElementById('themeSwitch');
@@ -215,4 +215,4 @@
       function init() { loadFromLocal(); initTheme(); renderBookmarks(); setTimeout(()=>loader.classList.add('hide'),400); form.addEventListener('submit',addOrUpdate); cancelBtn.addEventListener('click',resetFormUI); searchField.addEventListener('input',renderBookmarks); categoryFilter.addEventListener('change',renderBookmarks); sortSelect.addEventListener('change',renderBookmarks); fab.addEventListener('click',()=>{ resetFormUI(); document.querySelector('.card-glass').scrollIntoView({behavior:'smooth'}); titleInp.focus(); }); exportBtn.addEventListener('click',exportData); importBtn.addEventListener('click',()=>importFileInput.click()); importFileInput.addEventListener('change',(e)=>{ if(e.target.files[0]) importData(e.target.files[0]); importFileInput.value=''; }); clearAllBtn.addEventListener('click',clearAll); sampleBtn.addEventListener('click',loadSamples); themeBtn.addEventListener('click',()=>setTheme(document.body.classList.contains('theme-dark')?'light':'dark')); statsModalBtn.addEventListener('click',showStatsModal); closeModalBtn.addEventListener('click',closeModal); statsModal.addEventListener('click',(e)=>{if(e.target===statsModal) closeModal();}); }
       init();
     })();
-  </script></script>
+  
