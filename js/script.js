@@ -1,4 +1,4 @@
-<script>
+
     (function () {
       // AUTH SYSTEM (localStorage with multiple users)
       let currentUser = null;
@@ -249,4 +249,4 @@
       initTheme();
       checkAutoLogin();
     })();
-  </script></script>
+  
