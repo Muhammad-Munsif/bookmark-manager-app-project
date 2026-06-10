@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
   <title>Bookmark Vault | Secure Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -54,6 +57,7 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
+
     .theme-dark .glass-card {
       background: rgba(17, 24, 39, 0.85);
       border-color: rgba(255, 255, 255, 0.08);
@@ -65,10 +69,12 @@
       transition: all 0.25s;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
     }
+
     .theme-dark .neo-input {
       background: #1f2937;
       color: #f1f5f9;
     }
+
     .neo-input:focus {
       border-color: #3b82f6;
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
@@ -79,6 +85,7 @@
       background: linear-gradient(135deg, #3b82f6, #8b5cf6);
       transition: all 0.2s;
     }
+
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
@@ -104,10 +111,12 @@
       transition: 0.25s;
       border: 1px solid rgba(59, 130, 246, 0.3);
     }
+
     .theme-dark .toast-premium {
       background: #1e293b;
       border-color: #334155;
     }
+
     .toast-premium.show {
       opacity: 1;
       visibility: visible;
@@ -125,13 +134,16 @@
       z-index: 200;
       transition: 0.3s;
     }
+
     .theme-dark .loader-overlay {
       background: rgba(10, 15, 28, 0.9);
     }
+
     .loader-overlay.hide {
       opacity: 0;
       visibility: hidden;
     }
+
     .loader-spinner {
       width: 60px;
       height: 60px;
@@ -140,8 +152,11 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
+
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .bookmark-card {
@@ -151,15 +166,18 @@
       transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       margin-bottom: 0.875rem;
     }
+
     .theme-dark .bookmark-card {
       background: var(--card-dark);
       border-color: var(--border-dark);
     }
+
     .bookmark-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
       border-color: var(--primary-light);
     }
+
     .bookmark-favicon {
       width: 48px;
       height: 48px;
@@ -171,6 +189,7 @@
       font-size: 1.4rem;
       color: white;
     }
+
     .chip-category {
       display: inline-flex;
       align-items: center;
@@ -180,14 +199,48 @@
       font-size: 0.7rem;
       font-weight: 700;
     }
-    .chip-work { background: rgba(59,130,246,0.15); color: #2563eb; }
-    .chip-personal { background: rgba(16,185,129,0.12); color: #059669; }
-    .chip-learning { background: rgba(139,92,246,0.12); color: #7c3aed; }
-    .chip-entertainment { background: rgba(245,158,11,0.12); color: #d97706; }
-    .priority-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 20px; }
-    .priority-high { background: rgba(239,68,68,0.15); color: #dc2626; }
-    .priority-medium { background: rgba(245,158,11,0.15); color: #d97706; }
-    .priority-low { background: rgba(16,185,129,0.15); color: #059669; }
+
+    .chip-work {
+      background: rgba(59, 130, 246, 0.15);
+      color: #2563eb;
+    }
+
+    .chip-personal {
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+    }
+
+    .chip-learning {
+      background: rgba(139, 92, 246, 0.12);
+      color: #7c3aed;
+    }
+
+    .chip-entertainment {
+      background: rgba(245, 158, 11, 0.12);
+      color: #d97706;
+    }
+
+    .priority-badge {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    .priority-high {
+      background: rgba(239, 68, 68, 0.15);
+      color: #dc2626;
+    }
+
+    .priority-medium {
+      background: rgba(245, 158, 11, 0.15);
+      color: #d97706;
+    }
+
+    .priority-low {
+      background: rgba(16, 185, 129, 0.15);
+      color: #059669;
+    }
+
     .fab-glow {
       position: fixed;
       bottom: 2rem;
@@ -207,8 +260,20 @@
       transition: all 0.2s;
       border: none;
     }
-    .fab-glow:active { transform: scale(0.92); }
-    @media (max-width: 640px) { .fab-glow { width: 54px; height: 54px; bottom: 1.2rem; right: 1.2rem; } }
+
+    .fab-glow:active {
+      transform: scale(0.92);
+    }
+
+    @media (max-width: 640px) {
+      .fab-glow {
+        width: 54px;
+        height: 54px;
+        bottom: 1.2rem;
+        right: 1.2rem;
+      }
+    }
+
     .stat-card {
       background: linear-gradient(145deg, #ffffff, #f8fafc);
       border-radius: 1.5rem;
@@ -217,7 +282,11 @@
       border: 1px solid rgba(59, 130, 246, 0.2);
       transition: all 0.2s;
     }
-    .theme-dark .stat-card { background: linear-gradient(145deg, #1e293b, #0f172a); }
+
+    .theme-dark .stat-card {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+    }
+
     .stat-number {
       font-size: clamp(1.6rem, 5vw, 2.2rem);
       font-weight: 800;
@@ -226,13 +295,25 @@
       background-clip: text;
       color: transparent;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
-    .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-out;
+    }
   </style>
 </head>
+
 <body class="antialiased overflow-x-hidden theme-light">
 
   <div id="loaderOverlay" class="loader-overlay">
@@ -240,10 +321,12 @@
   </div>
 
   <!-- LOGIN / SIGNUP MODAL -->
-  <div id="authModal" class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md transition-all">
+  <div id="authModal"
+    class="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md transition-all">
     <div class="glass-card w-full max-w-md p-6 md:p-8 relative animate-fadeIn">
       <div class="text-center mb-6">
-        <div class="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg mb-3">
+        <div
+          class="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg mb-3">
           <i class="fa-solid fa-vault"></i>
         </div>
         <h2 class="text-2xl font-bold" id="authTitle">Welcome Back</h2>
@@ -253,20 +336,25 @@
       <form id="authForm" class="space-y-4">
         <div>
           <label class="block text-sm font-semibold mb-1.5"><i class="fas fa-user mr-1"></i> Username</label>
-          <input type="text" id="authUsername" class="neo-input w-full p-3 rounded-xl" placeholder="e.g., john_doe" required autocomplete="username">
+          <input type="text" id="authUsername" class="neo-input w-full p-3 rounded-xl" placeholder="e.g., john_doe"
+            required autocomplete="username">
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1.5"><i class="fas fa-lock mr-1"></i> Password</label>
-          <input type="password" id="authPassword" class="neo-input w-full p-3 rounded-xl" placeholder="••••••••" required autocomplete="current-password">
+          <input type="password" id="authPassword" class="neo-input w-full p-3 rounded-xl" placeholder="••••••••"
+            required autocomplete="current-password">
         </div>
-        <button type="submit" class="btn-primary w-full py-3 rounded-xl text-white font-bold text-lg transition-all">Login</button>
+        <button type="submit"
+          class="btn-primary w-full py-3 rounded-xl text-white font-bold text-lg transition-all">Login</button>
       </form>
 
       <div class="mt-5 text-center text-sm">
         <span class="text-gray-500 dark:text-gray-400">Don't have an account?</span>
-        <button id="switchToSignupBtn" class="text-blue-600 dark:text-blue-400 font-semibold ml-1 hover:underline">Sign up</button>
+        <button id="switchToSignupBtn" class="text-blue-600 dark:text-blue-400 font-semibold ml-1 hover:underline">Sign
+          up</button>
       </div>
-      <div class="mt-3 text-center text-xs text-gray-400">✨ Create an account to start your personal bookmark vault</div>
+      <div class="mt-3 text-center text-xs text-gray-400">✨ Create an account to start your personal bookmark vault
+      </div>
     </div>
   </div>
 
@@ -278,28 +366,48 @@
         <div class="flex items-center gap-4">
           <div class="bookmark-favicon !w-12 !h-12 !rounded-xl"><i class="fa-solid fa-gem"></i></div>
           <div>
-            <h1 class="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Bookmark Vault</h1>
-            <p class="text-gray-500 dark:text-gray-400 text-xs flex items-center gap-1"><i class="fas fa-user-check text-green-500"></i> Welcome, <span id="currentUserSpan">User</span></p>
+            <h1
+              class="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Bookmark Vault</h1>
+            <p class="text-gray-500 dark:text-gray-400 text-xs flex items-center gap-1"><i
+                class="fas fa-user-check text-green-500"></i> Welcome, <span id="currentUserSpan">User</span></p>
           </div>
         </div>
         <div class="flex gap-3">
-          <button id="statsModalBtn" class="p-3 rounded-full bg-white/80 dark:bg-gray-800 shadow-md"><i class="fas fa-chart-simple"></i></button>
-          <button id="themeSwitch" class="p-3 rounded-full bg-white/80 dark:bg-gray-800 shadow-md text-xl"><i class="fas fa-moon"></i></button>
-          <button id="logoutBtn" class="p-3 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 shadow-md"><i class="fas fa-sign-out-alt"></i></button>
+          <button id="statsModalBtn" class="p-3 rounded-full bg-white/80 dark:bg-gray-800 shadow-md"><i
+              class="fas fa-chart-simple"></i></button>
+          <button id="themeSwitch" class="p-3 rounded-full bg-white/80 dark:bg-gray-800 shadow-md text-xl"><i
+              class="fas fa-moon"></i></button>
+          <button id="logoutBtn" class="p-3 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 shadow-md"><i
+              class="fas fa-sign-out-alt"></i></button>
         </div>
       </div>
 
       <!-- Stats -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-        <div class="stat-card"><div class="stat-number" id="statTotal">0</div><div class="text-xs uppercase">Total</div></div>
-        <div class="stat-card"><div class="stat-number" id="statWork">0</div><div class="text-xs uppercase">Work</div></div>
-        <div class="stat-card"><div class="stat-number" id="statPersonal">0</div><div class="text-xs uppercase">Personal</div></div>
-        <div class="stat-card"><div class="stat-number" id="statRecent">0</div><div class="text-xs uppercase">New (7d)</div></div>
+        <div class="stat-card">
+          <div class="stat-number" id="statTotal">0</div>
+          <div class="text-xs uppercase">Total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statWork">0</div>
+          <div class="text-xs uppercase">Work</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statPersonal">0</div>
+          <div class="text-xs uppercase">Personal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statRecent">0</div>
+          <div class="text-xs uppercase">New (7d)</div>
+        </div>
       </div>
 
       <!-- Form Card -->
       <div class="glass-card p-6 md:p-7 mb-8">
-        <div class="flex items-center gap-2 mb-5 border-b pb-3"><i class="fas fa-magic text-blue-500 text-xl"></i><h2 class="text-xl font-bold" id="formTitle">✨ Add new bookmark</h2></div>
+        <div class="flex items-center gap-2 mb-5 border-b pb-3"><i class="fas fa-magic text-blue-500 text-xl"></i>
+          <h2 class="text-xl font-bold" id="formTitle">✨ Add new bookmark</h2>
+        </div>
         <form id="bookmarkForm" class="space-y-5">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div><input type="text" id="title" placeholder="Title *" class="neo-input w-full p-3.5 rounded-xl"></div>
@@ -307,18 +415,24 @@
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <select id="category" class="neo-input p-3.5 rounded-xl">
-              <option value="personal">📒 Personal</option><option value="work">💼 Work</option>
-              <option value="learning">🎓 Learning</option><option value="entertainment">🎮 Entertainment</option>
+              <option value="personal">📒 Personal</option>
+              <option value="work">💼 Work</option>
+              <option value="learning">🎓 Learning</option>
+              <option value="entertainment">🎮 Entertainment</option>
             </select>
             <select id="priority" class="neo-input p-3.5 rounded-xl">
-              <option value="low">🟢 Low</option><option value="medium">🟡 Medium</option><option value="high">🔴 High</option>
+              <option value="low">🟢 Low</option>
+              <option value="medium">🟡 Medium</option>
+              <option value="high">🔴 High</option>
             </select>
-            <textarea id="description" rows="1" placeholder="Description (optional)" class="neo-input p-3.5 rounded-xl resize-none"></textarea>
+            <textarea id="description" rows="1" placeholder="Description (optional)"
+              class="neo-input p-3.5 rounded-xl resize-none"></textarea>
           </div>
           <input type="hidden" id="editId">
           <div class="flex justify-end gap-3">
             <button type="button" id="cancelFormBtn" class="px-5 py-2.5 border-2 rounded-xl hidden">Cancel</button>
-            <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md">Save</button>
+            <button type="submit"
+              class="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md">Save</button>
           </div>
         </form>
       </div>
@@ -327,20 +441,30 @@
       <div class="glass-card p-6 md:p-7">
         <div class="flex flex-wrap justify-between gap-4 mb-5">
           <div class="flex gap-3 flex-wrap">
-            <input type="text" id="searchField" placeholder="Search..." class="neo-input px-4 py-3 rounded-xl w-48 md:w-64">
+            <input type="text" id="searchField" placeholder="Search..."
+              class="neo-input px-4 py-3 rounded-xl w-48 md:w-64">
             <select id="categoryFilter" class="neo-input px-4 py-3 rounded-xl">
-              <option value="all">All</option><option value="work">Work</option><option value="personal">Personal</option>
-              <option value="learning">Learning</option><option value="entertainment">Entertainment</option>
+              <option value="all">All</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="learning">Learning</option>
+              <option value="entertainment">Entertainment</option>
             </select>
             <select id="sortBy" class="neo-input px-4 py-3 rounded-xl">
-              <option value="date">Newest</option><option value="priority">Priority</option><option value="title">Title</option>
+              <option value="date">Newest</option>
+              <option value="priority">Priority</option>
+              <option value="title">Title</option>
             </select>
           </div>
           <div class="flex gap-2">
-            <button id="exportBtn" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm"><i class="fas fa-download"></i> Export</button>
-            <button id="importBtn" class="px-4 py-2 bg-violet-600 text-white rounded-xl text-sm"><i class="fas fa-upload"></i> Import</button>
-            <button id="clearAllBtn" class="px-4 py-2 bg-rose-500 text-white rounded-xl text-sm"><i class="fas fa-trash"></i> Clear</button>
-            <button id="sampleBtn" class="px-4 py-2 bg-amber-600 text-white rounded-xl text-sm"><i class="fas fa-flask"></i> Demo</button>
+            <button id="exportBtn" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm"><i
+                class="fas fa-download"></i> Export</button>
+            <button id="importBtn" class="px-4 py-2 bg-violet-600 text-white rounded-xl text-sm"><i
+                class="fas fa-upload"></i> Import</button>
+            <button id="clearAllBtn" class="px-4 py-2 bg-rose-500 text-white rounded-xl text-sm"><i
+                class="fas fa-trash"></i> Clear</button>
+            <button id="sampleBtn" class="px-4 py-2 bg-amber-600 text-white rounded-xl text-sm"><i
+                class="fas fa-flask"></i> Demo</button>
             <input type="file" id="importFile" accept=".json" class="hidden">
           </div>
         </div>
@@ -350,13 +474,21 @@
     <button id="fabAddBtn" class="fab-glow"><i class="fas fa-plus"></i></button>
   </div>
 
-  <div id="toastMsg" class="toast-premium"><i id="toastIcon" class="fas fa-check-circle text-green-500"></i><span id="toastText">Done</span><button id="undoActionBtn" class="ml-3 text-blue-600 font-bold hidden">Undo</button></div>
-  <div id="statsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[150] hidden">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 max-w-xs w-full"><div class="flex justify-between mb-3"><h3 class="font-bold">Insights</h3><button id="closeModalBtn">&times;</button></div><div id="modalStatsContent"></div></div>
+  <div id="toastMsg" class="toast-premium"><i id="toastIcon" class="fas fa-check-circle text-green-500"></i><span
+      id="toastText">Done</span><button id="undoActionBtn" class="ml-3 text-blue-600 font-bold hidden">Undo</button>
+  </div>
+  <div id="statsModal"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[150] hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 max-w-xs w-full">
+      <div class="flex justify-between mb-3">
+        <h3 class="font-bold">Insights</h3><button id="closeModalBtn">&times;</button>
+      </div>
+      <div id="modalStatsContent"></div>
+    </div>
   </div>
 
   <script>
-    (function() {
+    (function () {
       // ---------- AUTHENTICATION SYSTEM ----------
       let currentUser = null;
       let bookmarks = [];
@@ -440,11 +572,11 @@
         const users = JSON.parse(localStorage.getItem('bookmark_users') || '{}');
         const userData = users[currentUser];
         bookmarks = (userData && userData.bookmarks) ? userData.bookmarks : [];
-        bookmarks = bookmarks.map(b => ({ 
-          ...b, 
-          id: b.id || Date.now() + '-' + Math.random().toString(36).substr(2, 6), 
-          createdAt: b.createdAt || new Date().toISOString(), 
-          priority: b.priority || 'medium' 
+        bookmarks = bookmarks.map(b => ({
+          ...b,
+          id: b.id || Date.now() + '-' + Math.random().toString(36).substr(2, 6),
+          createdAt: b.createdAt || new Date().toISOString(),
+          priority: b.priority || 'medium'
         }));
         saveUserData(); // ensure consistency
         renderBookmarks();
@@ -485,10 +617,10 @@
           return matchSearch && matchCat;
         });
         filtered = getSortedBookmarks(filtered);
-        if (filtered.length === 0) { 
-          bookmarksDiv.innerHTML = `<div class="text-center py-16 text-gray-400"><i class="fas fa-folder-open text-6xl mb-3 opacity-40"></i><p>No bookmarks yet</p><p class="text-xs mt-1">Click + to add your first bookmark</p></div>`; 
-          updateStats(); 
-          return; 
+        if (filtered.length === 0) {
+          bookmarksDiv.innerHTML = `<div class="text-center py-16 text-gray-400"><i class="fas fa-folder-open text-6xl mb-3 opacity-40"></i><p>No bookmarks yet</p><p class="text-xs mt-1">Click + to add your first bookmark</p></div>`;
+          updateStats();
+          return;
         }
         let html = '';
         filtered.forEach(bm => {
@@ -515,24 +647,24 @@
       function resetFormUI() { form.reset(); editIdInp.value = ''; isEditing = false; formTitleSpan.innerText = '✨ Add new bookmark'; cancelBtn.classList.add('hidden'); priorityInp.value = 'medium'; }
       function editBookmark(id) { const bm = bookmarks.find(b => b.id === id); if (!bm) return; titleInp.value = bm.title; urlInp.value = bm.url; catInp.value = bm.category; priorityInp.value = bm.priority || 'medium'; descInp.value = bm.description || ''; editIdInp.value = bm.id; isEditing = true; formTitleSpan.innerText = '✏️ Edit bookmark'; cancelBtn.classList.remove('hidden'); document.querySelector('.glass-card').scrollIntoView({ behavior: 'smooth' }); }
       function deleteBookmark(id) { const idx = bookmarks.findIndex(b => b.id === id); if (idx === -1) return; lastDeletedItem = bookmarks[idx]; bookmarks.splice(idx, 1); saveUserData(); renderBookmarks(); showToast('Bookmark deleted', 'info', () => { if (lastDeletedItem) { bookmarks.push(lastDeletedItem); saveUserData(); renderBookmarks(); showToast('Restored', 'success'); lastDeletedItem = null; } }); }
-      function addOrUpdate(e) { 
-        e.preventDefault(); 
-        const title = titleInp.value.trim(); 
-        let url = urlInp.value.trim(); 
-        const category = catInp.value; 
-        const priority = priorityInp.value; 
-        const description = descInp.value.trim(); 
-        if (!title || !url) { showToast('Title & URL required', 'error'); return; } 
-        try { new URL(url); } catch (e) { urlInp.classList.add('border-red-500'); showToast('Invalid URL (include https://)', 'error'); return; } 
-        urlInp.classList.remove('border-red-500'); 
-        if (isEditing && editIdInp.value) { 
-          const idx = bookmarks.findIndex(b => b.id === editIdInp.value); 
-          if (idx !== -1) { bookmarks[idx] = { ...bookmarks[idx], title, url, category, priority, description }; saveUserData(); showToast('Updated', 'success'); resetFormUI(); renderBookmarks(); } 
-        } else { 
-          const newBm = { id: Date.now() + '-' + Math.random().toString(36).substring(2, 10), title, url, category, priority, description: description || '', createdAt: new Date().toISOString() }; 
-          bookmarks.unshift(newBm); saveUserData(); showToast('Added to vault', 'success'); resetFormUI(); renderBookmarks(); 
-        } 
-        renderBookmarks(); 
+      function addOrUpdate(e) {
+        e.preventDefault();
+        const title = titleInp.value.trim();
+        let url = urlInp.value.trim();
+        const category = catInp.value;
+        const priority = priorityInp.value;
+        const description = descInp.value.trim();
+        if (!title || !url) { showToast('Title & URL required', 'error'); return; }
+        try { new URL(url); } catch (e) { urlInp.classList.add('border-red-500'); showToast('Invalid URL (include https://)', 'error'); return; }
+        urlInp.classList.remove('border-red-500');
+        if (isEditing && editIdInp.value) {
+          const idx = bookmarks.findIndex(b => b.id === editIdInp.value);
+          if (idx !== -1) { bookmarks[idx] = { ...bookmarks[idx], title, url, category, priority, description }; saveUserData(); showToast('Updated', 'success'); resetFormUI(); renderBookmarks(); }
+        } else {
+          const newBm = { id: Date.now() + '-' + Math.random().toString(36).substring(2, 10), title, url, category, priority, description: description || '', createdAt: new Date().toISOString() };
+          bookmarks.unshift(newBm); saveUserData(); showToast('Added to vault', 'success'); resetFormUI(); renderBookmarks();
+        }
+        renderBookmarks();
       }
       function exportData() { const dataStr = JSON.stringify(bookmarks, null, 2); const blob = new Blob([dataStr], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `bookmarks_${currentUser}_${Date.now()}.json`; a.click(); URL.revokeObjectURL(a.href); showToast('Exported', 'success'); }
       function importData(file) { const reader = new FileReader(); reader.onload = (ev) => { try { const imported = JSON.parse(ev.target.result); if (!Array.isArray(imported)) throw new Error(); let added = 0; imported.forEach(item => { if (item.url && item.title && !bookmarks.some(b => b.url === item.url)) { bookmarks.push({ id: Date.now() + '-' + Math.random().toString(36).substr(2, 8), title: item.title, url: item.url, category: item.category || 'personal', priority: item.priority || 'medium', description: item.description || '', createdAt: item.createdAt || new Date().toISOString() }); added++; } }); if (added) { saveUserData(); renderBookmarks(); showToast(`Imported ${added} items`, 'success'); } else showToast('No new items', 'info'); } catch (e) { showToast('Invalid JSON', 'error'); } }; reader.readAsText(file); }
@@ -550,7 +682,7 @@
         const password = authPassword.value.trim();
         if (!username || !password) { showToast('Please fill all fields', 'error'); return; }
         const users = JSON.parse(localStorage.getItem('bookmark_users') || '{}');
-        
+
         if (isLoginMode) {
           // LOGIN: Check if user exists and password matches
           if (users[username] && users[username].password === password) {
@@ -594,16 +726,16 @@
 
       function switchMode() {
         isLoginMode = !isLoginMode;
-        if (isLoginMode) { 
-          authTitle.innerText = 'Welcome Back'; 
-          authSubtitle.innerText = 'Sign in to access your vault'; 
-          switchBtn.innerText = 'Sign up'; 
-          authForm.querySelector('button').innerText = 'Login'; 
-        } else { 
-          authTitle.innerText = 'Create Account'; 
-          authSubtitle.innerText = 'Sign up to start your personal vault'; 
-          switchBtn.innerText = 'Login'; 
-          authForm.querySelector('button').innerText = 'Sign up'; 
+        if (isLoginMode) {
+          authTitle.innerText = 'Welcome Back';
+          authSubtitle.innerText = 'Sign in to access your vault';
+          switchBtn.innerText = 'Sign up';
+          authForm.querySelector('button').innerText = 'Login';
+        } else {
+          authTitle.innerText = 'Create Account';
+          authSubtitle.innerText = 'Sign up to start your personal vault';
+          switchBtn.innerText = 'Login';
+          authForm.querySelector('button').innerText = 'Sign up';
         }
       }
 
@@ -665,10 +797,11 @@
       closeModalBtn.addEventListener('click', closeModal);
       statsModal.addEventListener('click', (e) => { if (e.target === statsModal) closeModal(); });
       themeBtn.addEventListener('click', () => setTheme(document.body.classList.contains('theme-dark') ? 'light' : 'dark'));
-      
+
       initTheme();
       checkAutoLogin();
     })();
   </script>
 </body>
+
 </html>
