@@ -1,4 +1,4 @@
-<script>
+
     (function () {
       // ---------- AUTHENTICATION SYSTEM ----------
       let currentUser = null;
@@ -312,4 +312,4 @@
       initTheme();
       checkAutoLogin();
     })();
-  </script></script>
+  
