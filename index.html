@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
-  <meta name="description" content="Secure Bookmark Vault - Organize, save and access your links from anywhere with priority tags and dark mode." />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="description"
+    content="Secure Bookmark Vault - Organize, save and access your links from anywhere with priority tags and dark mode." />
   <title>Bookmark Vault | Secure & Smart Manager</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -57,11 +61,13 @@
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
       transition: all 0.3s;
     }
+
     .theme-dark .glass-premium {
       background: rgba(17, 24, 39, 0.7);
       border-color: rgba(255, 255, 255, 0.06);
       box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
     }
+
     .glass-premium:hover {
       transform: translateY(-2px);
       box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.15);
@@ -76,11 +82,13 @@
       padding: 0.9rem 1.2rem;
       font-weight: 500;
     }
+
     .theme-dark .input-modern {
       background: #1e293b;
       border-color: #334155;
       color: #f1f5f9;
     }
+
     .input-modern:focus {
       border-color: #3b82f6;
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
@@ -94,6 +102,7 @@
       border: none;
       font-weight: 600;
     }
+
     .btn-glow:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 25px -8px rgba(59, 130, 246, 0.5);
@@ -109,10 +118,12 @@
       transition: all 0.2s;
       cursor: default;
     }
+
     .theme-dark .stat-premium {
       background: linear-gradient(135deg, #1e293b, #0f172a);
       border-color: rgba(59, 130, 246, 0.25);
     }
+
     .stat-number-glow {
       font-size: clamp(1.8rem, 5vw, 2.4rem);
       font-weight: 800;
@@ -131,15 +142,18 @@
       margin-bottom: 0.85rem;
       overflow: hidden;
     }
+
     .theme-dark .bookmark-card-pro {
       background: var(--card-dark);
       border-color: var(--border-dark);
     }
+
     .bookmark-card-pro:hover {
       transform: translateY(-3px) scale(1.01);
       box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
       border-color: var(--primary-light);
     }
+
     .favicon-badge {
       width: 48px;
       height: 48px;
@@ -152,6 +166,7 @@
       color: white;
       transition: transform 0.2s;
     }
+
     .bookmark-card-pro:hover .favicon-badge {
       transform: scale(1.05) rotate(2deg);
     }
@@ -167,14 +182,52 @@
       font-weight: 700;
       letter-spacing: 0.3px;
     }
-    .chip-work { background: rgba(59,130,246,0.12); color: #2563eb; border-left: 3px solid #3b82f6; }
-    .chip-personal { background: rgba(16,185,129,0.1); color: #059669; border-left: 3px solid #10b981; }
-    .chip-learning { background: rgba(139,92,246,0.1); color: #7c3aed; border-left: 3px solid #8b5cf6; }
-    .chip-entertainment { background: rgba(245,158,11,0.1); color: #d97706; border-left: 3px solid #f59e0b; }
-    .priority-tag { font-size: 0.65rem; padding: 0.2rem 0.7rem; border-radius: 20px; font-weight: 600; }
-    .priority-high { background: rgba(239,68,68,0.12); color: #dc2626; }
-    .priority-medium { background: rgba(245,158,11,0.12); color: #ea580c; }
-    .priority-low { background: rgba(16,185,129,0.12); color: #059669; }
+
+    .chip-work {
+      background: rgba(59, 130, 246, 0.12);
+      color: #2563eb;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .chip-personal {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      border-left: 3px solid #10b981;
+    }
+
+    .chip-learning {
+      background: rgba(139, 92, 246, 0.1);
+      color: #7c3aed;
+      border-left: 3px solid #8b5cf6;
+    }
+
+    .chip-entertainment {
+      background: rgba(245, 158, 11, 0.1);
+      color: #d97706;
+      border-left: 3px solid #f59e0b;
+    }
+
+    .priority-tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .priority-high {
+      background: rgba(239, 68, 68, 0.12);
+      color: #dc2626;
+    }
+
+    .priority-medium {
+      background: rgba(245, 158, 11, 0.12);
+      color: #ea580c;
+    }
+
+    .priority-low {
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+    }
 
     /* FAB with Micro-interaction */
     .fab-elegant {
@@ -196,9 +249,27 @@
       transition: all 0.25s;
       border: none;
     }
-    .fab-elegant:active { transform: scale(0.92); }
-    @media (hover: hover) { .fab-elegant:hover { transform: scale(1.08); box-shadow: 0 22px 35px #3b82f6; } }
-    @media (max-width: 640px) { .fab-elegant { width: 54px; height: 54px; bottom: 1.2rem; right: 1.2rem; font-size: 1.4rem; } }
+
+    .fab-elegant:active {
+      transform: scale(0.92);
+    }
+
+    @media (hover: hover) {
+      .fab-elegant:hover {
+        transform: scale(1.08);
+        box-shadow: 0 22px 35px #3b82f6;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .fab-elegant {
+        width: 54px;
+        height: 54px;
+        bottom: 1.2rem;
+        right: 1.2rem;
+        font-size: 1.4rem;
+      }
+    }
 
     /* Toast premium */
     .toast-vault {
@@ -206,7 +277,7 @@
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%) translateY(40px);
-      background: rgba(255,255,255,0.96);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(20px);
       padding: 0.8rem 1.8rem;
       border-radius: 3rem;
@@ -214,7 +285,7 @@
       gap: 0.8rem;
       align-items: center;
       font-weight: 600;
-      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
@@ -222,14 +293,24 @@
       border-left: 5px solid #10b981;
       font-size: 0.9rem;
     }
-    .theme-dark .toast-vault { background: #1e293b; border-color: #334155; color: #e2e8f0; }
-    .toast-vault.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+    .theme-dark .toast-vault {
+      background: #1e293b;
+      border-color: #334155;
+      color: #e2e8f0;
+    }
+
+    .toast-vault.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
 
     /* Loading */
     .loader-premium {
       position: fixed;
       inset: 0;
-      background: rgba(248,250,252,0.85);
+      background: rgba(248, 250, 252, 0.85);
       backdrop-filter: blur(12px);
       display: flex;
       align-items: center;
@@ -237,30 +318,73 @@
       z-index: 200;
       transition: 0.3s;
     }
-    .theme-dark .loader-premium { background: rgba(10,12,21,0.9); }
-    .loader-premium.hide { opacity: 0; visibility: hidden; }
-    .loader-ring { width: 64px; height: 64px; border: 4px solid rgba(59,130,246,0.2); border-top: 4px solid #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .theme-dark .loader-premium {
+      background: rgba(10, 12, 21, 0.9);
+    }
+
+    .loader-premium.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-ring {
+      width: 64px;
+      height: 64px;
+      border: 4px solid rgba(59, 130, 246, 0.2);
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* animations */
-    @keyframes fadeSlideUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
-    .bookmark-card-pro { animation: fadeSlideUp 0.3s ease-out; }
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .bookmark-card-pro {
+      animation: fadeSlideUp 0.3s ease-out;
+    }
 
     @media (max-width: 768px) {
-      .glass-premium { border-radius: 1.5rem; }
-      .input-modern { padding: 0.8rem 1rem; }
+      .glass-premium {
+        border-radius: 1.5rem;
+      }
+
+      .input-modern {
+        padding: 0.8rem 1rem;
+      }
     }
   </style>
 </head>
+
 <body class="antialiased overflow-x-hidden theme-light">
 
-  <div id="loaderOverlay" class="loader-premium"><div class="loader-ring"></div></div>
+  <div id="loaderOverlay" class="loader-premium">
+    <div class="loader-ring"></div>
+  </div>
 
   <!-- AUTH MODAL (Beautiful Glass) -->
-  <div id="authModal" class="fixed inset-0 z-[300] flex items-center justify-center p-5 bg-black/60 backdrop-blur-md transition-all">
+  <div id="authModal"
+    class="fixed inset-0 z-[300] flex items-center justify-center p-5 bg-black/60 backdrop-blur-md transition-all">
     <div class="glass-premium w-full max-w-md p-6 md:p-8 relative animate-fadeSlideUp">
       <div class="text-center mb-6">
-        <div class="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-xl mb-3">
+        <div
+          class="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-xl mb-3">
           <i class="fa-solid fa-shield-haltered"></i>
         </div>
         <h2 class="text-3xl font-extrabold tracking-tight" id="authTitle">Welcome Back</h2>
@@ -268,20 +392,28 @@
       </div>
       <form id="authForm" class="space-y-5">
         <div>
-          <label class="block text-sm font-semibold mb-1.5 ml-1"><i class="fas fa-user-circle mr-1 text-blue-500"></i> Username</label>
-          <input type="text" id="authUsername" class="input-modern w-full" placeholder="e.g., alex_creator" required autocomplete="username">
+          <label class="block text-sm font-semibold mb-1.5 ml-1"><i class="fas fa-user-circle mr-1 text-blue-500"></i>
+            Username</label>
+          <input type="text" id="authUsername" class="input-modern w-full" placeholder="e.g., alex_creator" required
+            autocomplete="username">
         </div>
         <div>
-          <label class="block text-sm font-semibold mb-1.5 ml-1"><i class="fas fa-key mr-1 text-purple-500"></i> Password</label>
-          <input type="password" id="authPassword" class="input-modern w-full" placeholder="••••••••" required autocomplete="current-password">
+          <label class="block text-sm font-semibold mb-1.5 ml-1"><i class="fas fa-key mr-1 text-purple-500"></i>
+            Password</label>
+          <input type="password" id="authPassword" class="input-modern w-full" placeholder="••••••••" required
+            autocomplete="current-password">
         </div>
-        <button type="submit" class="btn-glow w-full py-3.5 rounded-xl text-white text-lg font-bold transition-all">Access Vault</button>
+        <button type="submit"
+          class="btn-glow w-full py-3.5 rounded-xl text-white text-lg font-bold transition-all">Access Vault</button>
       </form>
       <div class="mt-6 text-center text-sm">
         <span class="text-gray-500 dark:text-gray-400">New here?</span>
-        <button id="switchToSignupBtn" class="text-blue-600 dark:text-blue-400 font-semibold ml-2 hover:underline transition">Create account →</button>
+        <button id="switchToSignupBtn"
+          class="text-blue-600 dark:text-blue-400 font-semibold ml-2 hover:underline transition">Create account
+          →</button>
       </div>
-      <div class="mt-3 text-center text-[11px] text-gray-400 flex items-center justify-center gap-2"><i class="fas fa-lock"></i> Your data stays private on this device</div>
+      <div class="mt-3 text-center text-[11px] text-gray-400 flex items-center justify-center gap-2"><i
+          class="fas fa-lock"></i> Your data stays private on this device</div>
     </div>
   </div>
 
@@ -293,29 +425,53 @@
         <div class="flex items-center gap-4">
           <div class="favicon-badge !w-12 !h-12 !rounded-xl shadow-md"><i class="fa-regular fa-star"></i></div>
           <div>
-            <h1 class="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">Bookmark Vault</h1>
-            <p class="text-gray-500 dark:text-gray-400 text-xs flex gap-1 items-center"><i class="fas fa-shield-alt text-green-500 text-[11px]"></i> <span id="currentUserSpan">user</span> · encrypted locally</p>
+            <h1
+              class="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              Bookmark Vault</h1>
+            <p class="text-gray-500 dark:text-gray-400 text-xs flex gap-1 items-center"><i
+                class="fas fa-shield-alt text-green-500 text-[11px]"></i> <span id="currentUserSpan">user</span> ·
+              encrypted locally</p>
           </div>
         </div>
         <div class="flex gap-3">
-          <button id="statsModalBtn" class="p-3 rounded-xl bg-white/70 dark:bg-gray-800 shadow-md text-gray-700 dark:text-gray-200 transition-all hover:scale-105"><i class="fas fa-chart-line"></i></button>
-          <button id="themeSwitch" class="p-3 rounded-xl bg-white/70 dark:bg-gray-800 shadow-md text-gray-700 dark:text-gray-200 text-xl transition-all hover:scale-105"><i class="fas fa-moon"></i></button>
-          <button id="logoutBtn" class="p-3 rounded-xl bg-rose-100 dark:bg-rose-900/30 text-rose-600 shadow-md transition-all hover:scale-105"><i class="fas fa-sign-out-alt"></i></button>
+          <button id="statsModalBtn"
+            class="p-3 rounded-xl bg-white/70 dark:bg-gray-800 shadow-md text-gray-700 dark:text-gray-200 transition-all hover:scale-105"><i
+              class="fas fa-chart-line"></i></button>
+          <button id="themeSwitch"
+            class="p-3 rounded-xl bg-white/70 dark:bg-gray-800 shadow-md text-gray-700 dark:text-gray-200 text-xl transition-all hover:scale-105"><i
+              class="fas fa-moon"></i></button>
+          <button id="logoutBtn"
+            class="p-3 rounded-xl bg-rose-100 dark:bg-rose-900/30 text-rose-600 shadow-md transition-all hover:scale-105"><i
+              class="fas fa-sign-out-alt"></i></button>
         </div>
       </div>
 
       <!-- Stats Row (Professional) -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-9">
-        <div class="stat-premium"><i class="fas fa-database text-blue-400 text-lg mb-1 block"></i><div class="stat-number-glow" id="statTotal">0</div><div class="text-[11px] font-semibold uppercase tracking-wider">Total links</div></div>
-        <div class="stat-premium"><i class="fas fa-briefcase text-indigo-400 text-lg mb-1 block"></i><div class="stat-number-glow" id="statWork">0</div><div class="text-[11px] font-semibold uppercase tracking-wider">Work</div></div>
-        <div class="stat-premium"><i class="fas fa-heart text-pink-400 text-lg mb-1 block"></i><div class="stat-number-glow" id="statPersonal">0</div><div class="text-[11px] font-semibold uppercase tracking-wider">Personal</div></div>
-        <div class="stat-premium"><i class="fas fa-calendar-week text-emerald-400 text-lg mb-1 block"></i><div class="stat-number-glow" id="statRecent">0</div><div class="text-[11px] font-semibold uppercase tracking-wider">Fresh (7d)</div></div>
+        <div class="stat-premium"><i class="fas fa-database text-blue-400 text-lg mb-1 block"></i>
+          <div class="stat-number-glow" id="statTotal">0</div>
+          <div class="text-[11px] font-semibold uppercase tracking-wider">Total links</div>
+        </div>
+        <div class="stat-premium"><i class="fas fa-briefcase text-indigo-400 text-lg mb-1 block"></i>
+          <div class="stat-number-glow" id="statWork">0</div>
+          <div class="text-[11px] font-semibold uppercase tracking-wider">Work</div>
+        </div>
+        <div class="stat-premium"><i class="fas fa-heart text-pink-400 text-lg mb-1 block"></i>
+          <div class="stat-number-glow" id="statPersonal">0</div>
+          <div class="text-[11px] font-semibold uppercase tracking-wider">Personal</div>
+        </div>
+        <div class="stat-premium"><i class="fas fa-calendar-week text-emerald-400 text-lg mb-1 block"></i>
+          <div class="stat-number-glow" id="statRecent">0</div>
+          <div class="text-[11px] font-semibold uppercase tracking-wider">Fresh (7d)</div>
+        </div>
       </div>
 
       <!-- Add Bookmark Card (glass) -->
       <div class="glass-premium p-6 md:p-7 mb-9">
         <div class="flex items-center gap-3 mb-5 border-b border-gray-200/60 dark:border-gray-700 pb-3">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-sm"><i class="fas fa-plus"></i></div>
+          <div
+            class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-sm">
+            <i class="fas fa-plus"></i></div>
           <h2 class="text-xl font-bold" id="formTitle">✨ New Bookmark</h2>
         </div>
         <form id="bookmarkForm" class="space-y-5">
@@ -324,14 +480,27 @@
             <div><input type="url" id="url" placeholder="https:// *" class="input-modern w-full"></div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <select id="category" class="input-modern w-full bg-white dark:bg-gray-800"><option value="personal">📘 Personal</option><option value="work">💼 Work</option><option value="learning">📚 Learning</option><option value="entertainment">🎬 Entertainment</option></select>
-            <select id="priority" class="input-modern w-full bg-white dark:bg-gray-800"><option value="low">🟢 Low priority</option><option value="medium">🟡 Medium priority</option><option value="high">🔴 High priority</option></select>
-            <textarea id="description" rows="1" placeholder="Notes (optional)" class="input-modern w-full resize-none"></textarea>
+            <select id="category" class="input-modern w-full bg-white dark:bg-gray-800">
+              <option value="personal">📘 Personal</option>
+              <option value="work">💼 Work</option>
+              <option value="learning">📚 Learning</option>
+              <option value="entertainment">🎬 Entertainment</option>
+            </select>
+            <select id="priority" class="input-modern w-full bg-white dark:bg-gray-800">
+              <option value="low">🟢 Low priority</option>
+              <option value="medium">🟡 Medium priority</option>
+              <option value="high">🔴 High priority</option>
+            </select>
+            <textarea id="description" rows="1" placeholder="Notes (optional)"
+              class="input-modern w-full resize-none"></textarea>
           </div>
           <input type="hidden" id="editId">
           <div class="flex justify-end gap-3">
-            <button type="button" id="cancelFormBtn" class="px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl font-medium hidden hover:bg-gray-100 dark:hover:bg-gray-800 transition">Cancel</button>
-            <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition flex items-center gap-2"><i class="fas fa-save"></i> Save</button>
+            <button type="button" id="cancelFormBtn"
+              class="px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl font-medium hidden hover:bg-gray-100 dark:hover:bg-gray-800 transition">Cancel</button>
+            <button type="submit"
+              class="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold shadow-md hover:shadow-lg transition flex items-center gap-2"><i
+                class="fas fa-save"></i> Save</button>
           </div>
         </form>
       </div>
@@ -339,20 +508,42 @@
       <!-- Filter & Bookmarks Section -->
       <div class="glass-premium p-6 md:p-7">
         <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-5 mb-6">
-          <h2 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-archive text-blue-500"></i> My Library</h2>
+          <h2 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-archive text-blue-500"></i> My Library
+          </h2>
           <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-            <div class="relative"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input type="text" id="searchField" placeholder="Search title or url..." class="input-modern w-full pl-10 pr-4 py-3 text-sm"></div>
-            <select id="categoryFilter" class="input-modern py-3 px-4 w-full sm:w-40 text-sm bg-white dark:bg-gray-800"><option value="all">All categories</option><option value="work">Work</option><option value="personal">Personal</option><option value="learning">Learning</option><option value="entertainment">Entertainment</option></select>
-            <select id="sortBy" class="input-modern py-3 px-4 w-full sm:w-36 text-sm bg-white dark:bg-gray-800"><option value="date">📅 Newest</option><option value="priority">⭐ Priority</option><option value="title">🔤 A-Z</option></select>
+            <div class="relative"><i
+                class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i><input
+                type="text" id="searchField" placeholder="Search title or url..."
+                class="input-modern w-full pl-10 pr-4 py-3 text-sm"></div>
+            <select id="categoryFilter" class="input-modern py-3 px-4 w-full sm:w-40 text-sm bg-white dark:bg-gray-800">
+              <option value="all">All categories</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="learning">Learning</option>
+              <option value="entertainment">Entertainment</option>
+            </select>
+            <select id="sortBy" class="input-modern py-3 px-4 w-full sm:w-36 text-sm bg-white dark:bg-gray-800">
+              <option value="date">📅 Newest</option>
+              <option value="priority">⭐ Priority</option>
+              <option value="title">🔤 A-Z</option>
+            </select>
           </div>
         </div>
-        
+
         <!-- Tools Row -->
         <div class="flex flex-wrap gap-2 mb-7 pb-2 border-b border-gray-200/50 dark:border-gray-700">
-          <button id="exportBtn" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i class="fas fa-download mr-1"></i> Export</button>
-          <button id="importBtn" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i class="fas fa-upload mr-1"></i> Import</button>
-          <button id="clearAllBtn" class="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i class="fas fa-trash-alt mr-1"></i> Clear all</button>
-          <button id="sampleBtn" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i class="fas fa-flask mr-1"></i> Demo</button>
+          <button id="exportBtn"
+            class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i
+              class="fas fa-download mr-1"></i> Export</button>
+          <button id="importBtn"
+            class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i
+              class="fas fa-upload mr-1"></i> Import</button>
+          <button id="clearAllBtn"
+            class="px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i
+              class="fas fa-trash-alt mr-1"></i> Clear all</button>
+          <button id="sampleBtn"
+            class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm transition"><i
+              class="fas fa-flask mr-1"></i> Demo</button>
           <input type="file" id="importFile" accept=".json" class="hidden">
         </div>
 
@@ -362,9 +553,21 @@
     <button id="fabAddBtn" class="fab-elegant"><i class="fas fa-plus"></i></button>
   </div>
 
-  <div id="toastMsg" class="toast-vault"><i id="toastIcon" class="fas fa-check-circle text-green-500 text-lg"></i><span id="toastText">Action done</span><button id="undoActionBtn" class="ml-3 text-blue-600 font-bold hidden bg-transparent">Undo</button></div>
-  <div id="statsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[150] hidden"><div class="bg-white dark:bg-gray-800 rounded-2xl p-5 max-w-xs w-full shadow-2xl"><div class="flex justify-between items-center mb-3"><h3 class="font-bold text-lg">📊 Vault Insights</h3><button id="closeModalBtn" class="text-gray-500 text-2xl leading-5">&times;</button></div><div id="modalStatsContent" class="space-y-2 text-sm"></div></div></div>
+  <div id="toastMsg" class="toast-vault"><i id="toastIcon" class="fas fa-check-circle text-green-500 text-lg"></i><span
+      id="toastText">Action done</span><button id="undoActionBtn"
+      class="ml-3 text-blue-600 font-bold hidden bg-transparent">Undo</button></div>
+  <div id="statsModal"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[150] hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 max-w-xs w-full shadow-2xl">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="font-bold text-lg">📊 Vault Insights</h3><button id="closeModalBtn"
+          class="text-gray-500 text-2xl leading-5">&times;</button>
+      </div>
+      <div id="modalStatsContent" class="space-y-2 text-sm"></div>
+    </div>
+  </div>
 
-  
+
 </body>
+
 </html>
