@@ -1,4 +1,4 @@
-<script>
+
     (function() {
       // Authentication & Core
       let currentUser = null;
@@ -187,4 +187,4 @@
       initTheme();
       checkAutoLogin();
     })();
-  </script></script>
+  
