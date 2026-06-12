@@ -1,4 +1,4 @@
-<script>
+
     (function () {
       let currentUser = null;
       let bookmarks = [];
@@ -166,4 +166,4 @@
       initTheme();
       checkAutoLogin();
     })();
-  </script></script>
+  
