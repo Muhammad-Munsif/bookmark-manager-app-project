@@ -1,4 +1,4 @@
- <script src="js/script.js">
+
     // js/script.js - Complete Backend Integration
     // Bookmark Vault with MongoDB Backend
 
@@ -648,4 +648,3 @@
       initTheme();
       checkAutoLogin();
     })();
-  </script></script>
