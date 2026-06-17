@@ -18,7 +18,7 @@ const bookmarkSchema = new mongoose.Schema({
     required: [true, 'URL is required'],
     trim: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         try {
           new URL(v);
           return true;
