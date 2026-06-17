@@ -7,7 +7,7 @@ const { validationResult } = require('express-validator');
 exports.getBookmarks = async (req, res) => {
   try {
     const { category, priority, search, limit = 50, skip = 0 } = req.query;
-    
+
     const query = {
       user_id: req.user.id,
       is_archived: false
@@ -15,7 +15,7 @@ exports.getBookmarks = async (req, res) => {
 
     if (category) query.category = category;
     if (priority) query.priority = priority;
-    
+
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: 'i' } },
@@ -286,7 +286,7 @@ exports.getStats = async (req, res) => {
 exports.importBookmarks = async (req, res) => {
   try {
     const bookmarks = req.body;
-    
+
     if (!Array.isArray(bookmarks)) {
       return res.status(400).json({
         success: false,
